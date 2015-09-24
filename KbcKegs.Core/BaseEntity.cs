@@ -10,6 +10,8 @@ namespace KbcKegs.Core
     {
         public int Id { get; set; }
 
+        public virtual ICollection<Note> Notes { get; set; }
+
         public bool IsTemporary()
         {
             return Id == 0;

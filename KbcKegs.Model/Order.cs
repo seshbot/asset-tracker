@@ -11,7 +11,6 @@ namespace KbcKegs.Model
     public class Order : BaseEntity
     {
         public string SourceId { get; set; }
-
         [ForeignKey("Customer")]
         public int CustomerId { get; set; }
         public virtual Customer Customer { get; set; }

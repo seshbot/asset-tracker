@@ -1,0 +1,60 @@
+﻿@model IEnumerable<KbcKegs.Model.Order>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm("DeleteAll", null))
+{
+    <p>
+        @Html.AntiForgeryToken()
+
+        @Html.ActionLink("Create New", "Create")
+
+        <span class="pull-right">
+            <input type="submit" value="Delete All" class="btn btn-link" style="padding: 0; border: 0; color: red" />
+        </span>
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer.SourceId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SourceId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Customer.SourceId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SourceId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+
+@section Scripts {
+    <script>
+        $('form').submit(function () {
+            if (!confirm('Are you sure you want to delete all?\nYou cannot undo this')) {
+                return false;
+            }
+
+            return true;
+        });
+    </script>
+}
