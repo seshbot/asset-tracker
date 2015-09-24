@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KbcKegs", "KbcKegs\KbcKegs.csproj", "{716BE569-801E-4A17-B11F-3E2A0BB1AFF8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{7E138BB1-DECD-4949-8B7E-8A3147C8471D}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\AzureVMPublishModule.psm1 = PublishScripts\AzureVMPublishModule.psm1
+		PublishScripts\Publish-WebApplicationVM.ps1 = PublishScripts\Publish-WebApplicationVM.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurations", "Configurations", "{B1AB8C2E-5F9A-4C40-B5F3-C1C19D56A8E0}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Configurations\KbcKegs-WAWS-dev.json = PublishScripts\Configurations\KbcKegs-WAWS-dev.json
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KbcKegs.Model", "KbcKegs.Model\KbcKegs.Model.csproj", "{9AA75B38-2AE1-4733-A883-46295DA369E0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{716BE569-801E-4A17-B11F-3E2A0BB1AFF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{716BE569-801E-4A17-B11F-3E2A0BB1AFF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{716BE569-801E-4A17-B11F-3E2A0BB1AFF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{716BE569-801E-4A17-B11F-3E2A0BB1AFF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AA75B38-2AE1-4733-A883-46295DA369E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AA75B38-2AE1-4733-A883-46295DA369E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AA75B38-2AE1-4733-A883-46295DA369E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AA75B38-2AE1-4733-A883-46295DA369E0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B1AB8C2E-5F9A-4C40-B5F3-C1C19D56A8E0} = {7E138BB1-DECD-4949-8B7E-8A3147C8471D}
+	EndGlobalSection
+EndGlobal
