@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9AA75B38-2AE1-4733-A883-46295DA369E0}</ProjectGuid>
+    <ProjectGuid>{AC6DB620-D774-4C41-B160-CB15D92A59A1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KbcKegs.Model</RootNamespace>
-    <AssemblyName>KbcKegs.Model</AssemblyName>
+    <RootNamespace>KbcKegs.Data</RootNamespace>
+    <AssemblyName>KbcKegs.Data</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -49,23 +49,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Asset.cs" />
-    <Compile Include="AssetEventInfo.cs" />
-    <Compile Include="CollectionEvent.cs" />
-    <Compile Include="Customer.cs" />
-    <Compile Include="DeliveryEvent.cs" />
-    <Compile Include="Order.cs" />
+    <Compile Include="KbcDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\KbcKegs.Core\KbcKegs.Core.csproj">
       <Project>{a391bf9d-2ae3-4388-9e14-2f0f105531cc}</Project>
       <Name>KbcKegs.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\KbcKegs.Model\KbcKegs.Model.csproj">
+      <Project>{9aa75b38-2ae1-4733-a883-46295da369e0}</Project>
+      <Name>KbcKegs.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

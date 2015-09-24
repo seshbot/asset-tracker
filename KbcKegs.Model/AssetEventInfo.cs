@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KbcKegs.Core;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -15,15 +16,13 @@ namespace KbcKegs.Model
         Collected,
     }
 
-    public class AssetEvent
+    public class AssetEventInfo : BaseEntity
     {
-        public int Id { get; set; }
-
         [ForeignKey("Asset")]
         public int AssetId { get; set; }
         public virtual Asset Asset { get; set; }
 
         public AssetEventType EventType { get; set; }
-        public int DeliveryOrCollectionId { get; set; }
+        public int EventId { get; set; }
     }
 }

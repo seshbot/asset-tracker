@@ -257,6 +257,20 @@
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KbcKegs.Core\KbcKegs.Core.csproj">
+      <Project>{a391bf9d-2ae3-4388-9e14-2f0f105531cc}</Project>
+      <Name>KbcKegs.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KbcKegs.Data\KbcKegs.Data.csproj">
+      <Project>{ac6db620-d774-4c41-b160-cb15d92a59a1}</Project>
+      <Name>KbcKegs.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KbcKegs.Model\KbcKegs.Model.csproj">
+      <Project>{9aa75b38-2ae1-4733-a883-46295da369e0}</Project>
+      <Name>KbcKegs.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

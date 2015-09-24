@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KbcKegs.Core;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -7,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace KbcKegs.Model
 {
-    public class Collection
+    public class CollectionEvent : BaseEvent
     {
-        public int Id { get; set; }
-        
         [ForeignKey("Customer")]
         public int CustomerId { get; set; }
         public virtual Customer Customer { get; set; }

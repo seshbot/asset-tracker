@@ -18,6 +18,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurations", "Configura
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KbcKegs.Model", "KbcKegs.Model\KbcKegs.Model.csproj", "{9AA75B38-2AE1-4733-A883-46295DA369E0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KbcKegs.Core", "KbcKegs.Core\KbcKegs.Core.csproj", "{A391BF9D-2AE3-4388-9E14-2F0F105531CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KbcKegs.Data", "KbcKegs.Data\KbcKegs.Data.csproj", "{AC6DB620-D774-4C41-B160-CB15D92A59A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +36,14 @@ Global
 		{9AA75B38-2AE1-4733-A883-46295DA369E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9AA75B38-2AE1-4733-A883-46295DA369E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9AA75B38-2AE1-4733-A883-46295DA369E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A391BF9D-2AE3-4388-9E14-2F0F105531CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A391BF9D-2AE3-4388-9E14-2F0F105531CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A391BF9D-2AE3-4388-9E14-2F0F105531CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A391BF9D-2AE3-4388-9E14-2F0F105531CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC6DB620-D774-4C41-B160-CB15D92A59A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC6DB620-D774-4C41-B160-CB15D92A59A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC6DB620-D774-4C41-B160-CB15D92A59A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC6DB620-D774-4C41-B160-CB15D92A59A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

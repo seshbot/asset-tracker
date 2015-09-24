@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KbcKegs.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,14 +15,13 @@ namespace KbcKegs.Model
         Retired,
     }
 
-    public class Asset
+    public class Asset : BaseEntity
     {
-        public int Id { get; set; }
         public string Description { get; set; }
 
         public string SerialNumber { get; set; }
         public AssetState State { get; set; }
 
-        public virtual ICollection<AssetEvent> History { get; set; }
+        public virtual ICollection<AssetEventInfo> History { get; set; }
     }
 }
