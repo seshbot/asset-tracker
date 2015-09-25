@@ -9,8 +9,9 @@ using System.Web.Mvc;
 using KbcKegs.Data;
 using KbcKegs.Model;
 
-namespace KbcKegs.Controllers
+namespace KbcKegs.Controllers.Web
 {
+    [Authorize]
     public class CustomersController : Controller
     {
         private KbcDbContext db = new KbcDbContext();

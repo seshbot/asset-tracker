@@ -9,109 +9,115 @@ using System.Web.Mvc;
 using KbcKegs.Data;
 using KbcKegs.Model;
 
-namespace KbcKegs.Controllers
+namespace KbcKegs.Controllers.Web
 {
-    public class AssetsController : Controller
+    [Authorize]
+    public class OrdersController : Controller
     {
         private KbcDbContext db = new KbcDbContext();
 
-        // GET: Assets
+        // GET: Orders
         public ActionResult Index()
         {
-            return View(db.Assets.ToList());
+            var orders = db.Orders.Include(o => o.Customer);
+            return View(orders.ToList());
         }
 
-        // GET: Assets/Details/5
+        // GET: Orders/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Asset asset = db.Assets.Find(id);
-            if (asset == null)
+            Order order = db.Orders.Find(id);
+            if (order == null)
             {
                 return HttpNotFound();
             }
-            return View(asset);
+            return View(order);
         }
 
-        // GET: Assets/Create
+        // GET: Orders/Create
         public ActionResult Create()
         {
+            ViewBag.CustomerId = new SelectList(db.Customers, "Id", "SourceId");
             return View();
         }
 
-        // POST: Assets/Create
+        // POST: Orders/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Description,SerialNumber,State")] Asset asset)
+        public ActionResult Create([Bind(Include = "Id,SourceId,CustomerId")] Order order)
         {
             if (ModelState.IsValid)
             {
-                db.Assets.Add(asset);
+                db.Orders.Add(order);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(asset);
+            ViewBag.CustomerId = new SelectList(db.Customers, "Id", "SourceId", order.CustomerId);
+            return View(order);
         }
 
-        // GET: Assets/Edit/5
+        // GET: Orders/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Asset asset = db.Assets.Find(id);
-            if (asset == null)
+            Order order = db.Orders.Find(id);
+            if (order == null)
             {
                 return HttpNotFound();
             }
-            return View(asset);
+            ViewBag.CustomerId = new SelectList(db.Customers, "Id", "SourceId", order.CustomerId);
+            return View(order);
         }
 
-        // POST: Assets/Edit/5
+        // POST: Orders/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Description,SerialNumber,State")] Asset asset)
+        public ActionResult Edit([Bind(Include = "Id,SourceId,CustomerId")] Order order)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(asset).State = EntityState.Modified;
+                db.Entry(order).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(asset);
+            ViewBag.CustomerId = new SelectList(db.Customers, "Id", "SourceId", order.CustomerId);
+            return View(order);
         }
 
-        // GET: Assets/Delete/5
+        // GET: Orders/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Asset asset = db.Assets.Find(id);
-            if (asset == null)
+            Order order = db.Orders.Find(id);
+            if (order == null)
             {
                 return HttpNotFound();
             }
-            return View(asset);
+            return View(order);
         }
 
-        // POST: Assets/Delete/5
+        // POST: Orders/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Asset asset = db.Assets.Find(id);
-            db.Assets.Remove(asset);
+            Order order = db.Orders.Find(id);
+            db.Orders.Remove(order);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -120,7 +126,7 @@ namespace KbcKegs.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteAll()
         {
-            db.Assets.RemoveRange(db.Assets);
+            db.Orders.RemoveRange(db.Orders);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

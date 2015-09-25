@@ -13,5 +13,7 @@ namespace KbcKegs.Data
         public DbSet<Asset> Assets { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Order> Orders { get; set; }
+
+        public DbSet<DeliveryEvent> DeliveryEvents { get; set; }
     }
 }

@@ -178,11 +178,12 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AssetsController.cs" />
-    <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\Api\DeliveryEventsController.cs" />
+    <Compile Include="Controllers\Web\AssetsController.cs" />
+    <Compile Include="Controllers\Web\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\Web\OrdersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
