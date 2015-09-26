@@ -11,5 +11,9 @@ namespace KbcKegs.Model.Repositories
         void Add(DeliveryEvent evt);
         void Add(CollectionEvent evt);
         void Add(CleaningEvent evt);
+
+        IQueryable<DeliveryEvent> GetDeliveryEventsSince(DateTime since);
+        IQueryable<CollectionEvent> GetCollectionEventsSince(DateTime since);
+        IQueryable<CleaningEvent> GetCleaningEventsSince(DateTime since);
     }
 }

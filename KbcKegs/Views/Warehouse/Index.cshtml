@@ -1,0 +1,114 @@
+﻿@using KbcKegs.Models
+@model WarehouseViewModel
+@{
+    ViewBag.Title = "Inventory Management";
+}
+
+<!-- Modal -->
+<div class="modal fade" id="newDeliveryModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title" id="newDeliveryModalLabel">New Delivery</h3>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="newDeliveryOrder">Order</label>
+                    <div class="col-md-10">
+                        <select class="form-control" id="newDeliveryOrderId" name="OrderId">
+                            <option value="1">123456</option>
+                        </select>
+                        <span class="field-validation-valid text-danger" data-valmsg-for="newDeliveryOrderId" data-valmsg-replace="true"></span>
+                        <p />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <label class="control-label">Assets</label>
+                    </div>
+                    <div class="col-md-10">
+                        <table class="table table-striped">
+                            <tr>
+                                <th>Serial #</th>
+                                <th>Description</th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <td>1235</td>
+                                <td>aaaaa</td>
+                                <td><a href="">delete</a></td>
+                            </tr>
+                            <tr>
+                                <td>1235</td>
+                                <td>aaaaa</td>
+                                <td><a href="">delete</a></td>
+                            </tr>
+                            <tr>
+                                <td>1235</td>
+                                <td>aaaaa</td>
+                                <td><a href="">delete</a></td>
+                            </tr>
+                            <tr>
+                                <td>1235</td>
+                                <td>aaaaa</td>
+                                <td><a href="">delete</a></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="button" class="btn btn-warning btn-sm pull-right" value="Add Asset">
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2>Recent Events</h2>
+<div class="row">
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">Deliveries <span class="pull-right"><a href="#" data-toggle="modal" data-target="#newDeliveryModal">+ add new</a></span></div>
+            <table class="table">
+                <thead></thead>
+                <tbody>
+                    <tr><th></th><th>Order ID</th><th>Customer ID</th><th width="90"># Assets</th></tr>
+                @foreach (var evt in Model.RecentDeliveries)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(m => evt.DateTime)</td>
+                        <td>@Html.DisplayFor(m => evt.OrderId)</td>
+                        <td>@Html.DisplayFor(m => evt.Order.CustomerId)</td>
+                        <td>@Html.DisplayFor(m => evt.Assets.Count)</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">Collections <span class="pull-right">+ add new</span></div>
+            <table class="table">
+                <thead></thead>
+                <tbody>
+                    <tr><th></th><th>Customer ID</th><th width="90"># Assets</th></tr>
+                    @foreach (var evt in Model.RecentCollections)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(m => evt.DateTime)</td>
+                            <td>@Html.DisplayFor(m => evt.CustomerId)</td>
+                            <td>@Html.DisplayFor(m => evt.Assets.Count)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
