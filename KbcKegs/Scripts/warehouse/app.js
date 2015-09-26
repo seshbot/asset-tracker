@@ -4,6 +4,7 @@
     angular.module('app', ['angular-loading-bar']);
     angular.module('app').controller('NewDeliveryController', NewDeliveryController);
     angular.module('app').controller('NewCollectionController', NewCollectionController);
+    angular.module('app').controller('NewCleaningController', NewCleaningController);
 
     NewDeliveryController.$inject = ['$scope', '$http', 'assetsAvailable', 'addSuccessCallback'];
     function NewDeliveryController($scope, $http, assetsAvailable, addSuccessCallback) {
@@ -18,7 +19,8 @@
         $scope.selectedAsset = null;
         $scope.removeAsset = removeAsset;
         $scope.addSelectedAsset = addSelectedAsset;
-        $scope.sendDelivery = sendDelivery;
+        $scope.canSend = canSend;
+        $scope.send = send;
 
         $scope.$watch('selectedAssetId', handleSelectedAssetIdChanged);
 
@@ -47,7 +49,17 @@
             $scope.selectedAsset = newAsset;
         };
 
-        function sendDelivery() {
+        function canSend() {
+            var result =
+                ($scope.newDelivery.orderId != -1 &&
+                 $scope.newDelivery.assets.length > 0);
+
+            return result;
+        };
+
+        function send() {
+            if (!canSend()) return;
+
             $http.post('/api/deliveries/', $scope.newDelivery)
                  .then(handleAddSuccess, handleAddFailure);
 
@@ -88,7 +100,8 @@
         $scope.selectedAsset = null;
         $scope.removeAsset = removeAsset;
         $scope.addSelectedAsset = addSelectedAsset;
-        $scope.sendCollection = sendCollection;
+        $scope.canSend = canSend;
+        $scope.send = send;
 
         $scope.$watch('selectedAssetId', handleSelectedAssetIdChanged);
 
@@ -117,7 +130,16 @@
             $scope.selectedAsset = newAsset;
         };
 
-        function sendCollection() {
+        function canSend() {            
+            var result =
+               ($scope.newCollection.customerId != -1 &&
+                $scope.newCollection.assets.length > 0);
+
+            return result;
+        };
+
+        function send() {
+            if (!canSend()) return;
             $http.post('/api/collections/', $scope.newCollection)
                  .then(handleAddSuccess, handleAddFailure);
 
@@ -145,7 +167,81 @@
         };
     }
 
+    NewCleaningController.$inject = ['$scope', '$http', 'assetsNeedCleaning', 'addSuccessCallback'];
+    function NewCleaningController($scope, $http, assetsNeedCleaning, addSuccessCallback) {
+        $scope.assetsNeedCleaning = assetsNeedCleaning;
 
+        $scope.newCleaning = {
+            assets: []
+        };
+
+        $scope.selectedAssetId = -1;
+        $scope.selectedAsset = null;
+        $scope.removeAsset = removeAsset;
+        $scope.addSelectedAsset = addSelectedAsset;
+        $scope.canSend = canSend;
+        $scope.send = send;
+
+        $scope.$watch('selectedAssetId', handleSelectedAssetIdChanged);
+
+        function removeAsset(asset) {
+            if (null == asset) return;
+            moveAsset(asset, $scope.newCleaning.assets, $scope.assetsNeedCleaning);
+        };
+
+        function addSelectedAsset() {
+            var asset = $scope.selectedAsset;
+
+            if (null == asset) return;
+            moveAsset(asset, $scope.assetsNeedCleaning, $scope.newCleaning.assets);
+        };
+
+        function handleSelectedAssetIdChanged(newValue, oldValue) {
+            var newAsset = null;
+            for (var idx = 0; idx < $scope.assetsNeedCleaning.length; ++idx) {
+                var asset = $scope.assetsNeedCleaning[idx];
+                if (asset.id == $scope.selectedAssetId) {
+                    newAsset = asset;
+                    break;
+                }
+            }
+
+            $scope.selectedAsset = newAsset;
+        };
+
+        function canSend() {
+            return $scope.newCleaning.assets.length > 0;
+        };
+
+        function send() {
+            if (!canSend()) return;
+
+            $http.post('/api/cleaning/', $scope.newCleaning)
+                 .then(handleAddSuccess, handleAddFailure);
+
+            function handleAddSuccess(response) {
+                console.log('added successfully');
+                addSuccessCallback();
+            };
+
+            function handleAddFailure(response) {
+                console.log('error getting API data', response);
+                if (!angular.isObject(response.data) || !response.data.message) {
+                    $q.reject({
+                        statusMessage: response.statusText,
+                        errorMessage: 'An unknown error occurred',
+                        errorMessageDetail: ''
+                    });
+                } else {
+                    $q.reject({
+                        statusText: response.statusText,
+                        message: response.data.message,
+                        messageDetail: response.data.messageDetail
+                    });
+                }
+            };
+        };
+    }
 
     function moveAsset(asset, fromArray, toArray) {
         for (var idx = 0; idx < fromArray.length; ++idx) {

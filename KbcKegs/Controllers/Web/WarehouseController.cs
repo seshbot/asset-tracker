@@ -34,10 +34,10 @@ namespace KbcKegs.Controllers.Web
             {
                 RecentDeliveries = events.GetDeliveryEventsSince(since),
                 RecentCollections = events.GetCollectionEventsSince(since),
+                RecentCleanings = events.GetCleaningEventsSince(since),
                 Customers = customers.AsQueryable.ToList(),
                 Orders = orders.AsQueryable.ToList(),
-                AssetsAvailable = assets.AsQueryable.Where(a => a.State == Model.AssetState.Available).ToList(),
-                AssetsWithCustomers = assets.AsQueryable.Where(a => a.State == Model.AssetState.WithCustomer).ToList(),
+                Assets = assets.AsQueryable.Where(a => a.State != Model.AssetState.Retired).ToList(),
             };
 
             return View(vm);

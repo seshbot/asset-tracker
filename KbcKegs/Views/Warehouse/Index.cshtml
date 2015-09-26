@@ -58,7 +58,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" ng-click="sendDelivery()">Send</button>
+                    <button type="button" class="btn btn-primary" ng-class="{'disabled': !canSend()}" ng-click="send()">Send</button>
                 </div>
             </div>
         </div>
@@ -118,7 +118,54 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" ng-click="sendCollection()">Send</button>
+                    <button type="button" class="btn btn-primary" ng-class="{'disabled': !canSend()}" ng-click="send()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal -->
+    <div ng-controller="NewCleaningController" class="modal fade" id="newCleaningModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h3 class="modal-title" id="newCleaningModalLabel">New Cleaning</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="col-md-2">
+                            <label class="control-label">Assets</label>
+                        </div>
+                        <div class="col-md-10">
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>Serial #</th>
+                                    <th>Description</th>
+                                    <th></th>
+                                </tr>
+                                <tr ng-repeat="asset in newCleaning.assets">
+                                    <td>{{asset.serialNumber}}</td>
+                                    <td>{{asset.description}}</td>
+                                    <td><a href="" ng-click="removeAsset(asset)">remove</a></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <select ng-model="selectedAssetId" class="form-control">
+                                            <option ng-repeat="asset in assetsNeedCleaning" value="{{asset.id}}">{{asset.serialNumber}}</option>
+                                        </select>
+                                    </td>
+                                    <td>{{selectedAsset.description}}</td>
+                                    <td><a href="" ng-click="addSelectedAsset()">add</a></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-class="{'disabled': !canSend()}" ng-click="send()">Send</button>
                 </div>
             </div>
         </div>
@@ -134,7 +181,7 @@
                 <thead></thead>
                 <tbody>
                     <tr><th></th><th>Order ID</th><th>Customer ID</th><th width="90"># Assets</th></tr>
-                    @foreach (var evt in Model.RecentDeliveries)
+                    @foreach (var evt in Model.RecentDeliveries.Reverse())
                     {
                         <tr>
                             <td>@Html.DisplayFor(m => evt.DateTime)</td>
@@ -154,7 +201,7 @@
                 <thead></thead>
                 <tbody>
                     <tr><th></th><th>Customer ID</th><th width="90"># Assets</th></tr>
-                    @foreach (var evt in Model.RecentCollections)
+                    @foreach (var evt in Model.RecentCollections.Reverse())
                     {
                         <tr>
                             <td>@Html.DisplayFor(m => evt.DateTime)</td>
@@ -168,12 +215,12 @@
     </div>
     <div class="col-md-3">
         <div class="panel panel-default">
-            <div class="panel-heading">Cleaning <span class="pull-right"><a href="#" data-toggle="modal" data-target="#newCollectionModal">+ add new</a></span></div>
+            <div class="panel-heading">Cleaning <span class="pull-right"><a href="#" data-toggle="modal" data-target="#newCleaningModal">+ add new</a></span></div>
             <table class="table">
                 <thead></thead>
                 <tbody>
                     <tr><th></th><th width="90"># Assets</th></tr>
-                    @foreach (var evt in Model.RecentCollections)
+                    @foreach (var evt in Model.RecentCleanings.Reverse())
                     {
                         <tr>
                             <td>@Html.DisplayFor(m => evt.DateTime)</td>
@@ -190,16 +237,10 @@
     @Scripts.Render("~/Scripts/warehouse/app.js")
 
     <script>
-        var assetsAvailable = [
-            @foreach (var asset in Model.AssetsAvailable)
+        var assets = [
+            @foreach (var asset in Model.Assets)
             {
-                @:{ id: @asset.Id, description: '@asset.Description', serialNumber: '@asset.SerialNumber' },
-            }
-        ];
-        var assetsWithCustomers = [
-            @foreach (var asset in Model.AssetsWithCustomers)
-        {
-            @:{ id: @asset.Id, description: '@asset.Description', serialNumber: '@asset.SerialNumber' },
+                @:{ id: @asset.Id, description: '@asset.Description', serialNumber: '@asset.SerialNumber', state: '@asset.State' },
             }
         ];
 
@@ -207,8 +248,9 @@
             document.location.reload();
         }
 
-        angular.module('app').value('assetsAvailable', assetsAvailable);
-        angular.module('app').value('assetsWithCustomers', assetsWithCustomers);
+        angular.module('app').value('assetsAvailable', assets.filter(function(a){ return a.state == 'Available'; }));
+        angular.module('app').value('assetsWithCustomers', assets.filter(function(a){ return a.state == 'WithCustomer'; }));
+        angular.module('app').value('assetsNeedCleaning', assets.filter(function(a){ return a.state == 'NeedsCleaning'; }));
         angular.module('app').value('addSuccessCallback', addSuccessCallback);
     </script>
 }
