@@ -331,7 +331,7 @@
       <Project>{a391bf9d-2ae3-4388-9e14-2f0f105531cc}</Project>
       <Name>KbcKegs.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\KbcKegs.Data\KbcKegs.Data.csproj">
+    <ProjectReference Include="..\KbcKegs.Data.EF\KbcKegs.Data.EF.csproj">
       <Project>{ac6db620-d774-4c41-b160-cb15d92a59a1}</Project>
       <Name>KbcKegs.Data</Name>
     </ProjectReference>

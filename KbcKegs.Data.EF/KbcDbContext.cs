@@ -15,5 +15,15 @@ namespace KbcKegs.Data
         public DbSet<Order> Orders { get; set; }
 
         public DbSet<DeliveryEvent> DeliveryEvents { get; set; }
+        public DbSet<CollectionEvent> CollectionEvents { get; set; }
+        public DbSet<CleaningEvent> CleaningEvents { get; set; }
+    }
+
+    public class KbcDbContextInitializer : DropCreateDatabaseIfModelChanges<KbcDbContext>
+    {
+        protected override void Seed(KbcDbContext context)
+        {
+            base.Seed(context);
+        }
     }
 }

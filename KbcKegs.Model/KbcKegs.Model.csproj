@@ -51,9 +51,17 @@
   <ItemGroup>
     <Compile Include="Asset.cs" />
     <Compile Include="AssetEventInfo.cs" />
+    <Compile Include="CleaningEvent.cs" />
     <Compile Include="CollectionEvent.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="DeliveryEvent.cs" />
+    <Compile Include="Repositories\IAssetRepository.cs" />
+    <Compile Include="Repositories\ICustomerRepository.cs" />
+    <Compile Include="Repositories\IEntityRepository.cs" />
+    <Compile Include="Repositories\IEventRepository.cs" />
+    <Compile Include="Services\IInventoryService.cs" />
+    <Compile Include="Services\InventoryService.cs" />
+    <Compile Include="Repositories\IOrderRepository.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

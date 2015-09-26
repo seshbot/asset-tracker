@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KbcKegs.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,6 +14,8 @@ namespace KbcKegs
     {
         protected void Application_Start()
         {
+            System.Data.Entity.Database.SetInitializer(new KbcDbContextInitializer());
+
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

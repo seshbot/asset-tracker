@@ -20,7 +20,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KbcKegs.Model", "KbcKegs.Mo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KbcKegs.Core", "KbcKegs.Core\KbcKegs.Core.csproj", "{A391BF9D-2AE3-4388-9E14-2F0F105531CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KbcKegs.Data", "KbcKegs.Data\KbcKegs.Data.csproj", "{AC6DB620-D774-4C41-B160-CB15D92A59A1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KbcKegs.Data.EF", "KbcKegs.Data.EF\KbcKegs.Data.EF.csproj", "{AC6DB620-D774-4C41-B160-CB15D92A59A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
