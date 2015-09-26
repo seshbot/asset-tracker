@@ -13,9 +13,12 @@ namespace KbcKegs.Models
         {
             RecentDeliveries = new List<DeliveryEvent>();
             RecentCollections = new List<CollectionEvent>();
+            Orders = new List<Order>();
         }
 
         public IEnumerable<DeliveryEvent> RecentDeliveries { get; set; }
         public IEnumerable<CollectionEvent> RecentCollections { get; set; }
+        public IEnumerable<Order> Orders { get; set; }
+        public IEnumerable<Asset> Assets { get; set; }
     }
 }
