@@ -6,17 +6,16 @@ using System.Threading.Tasks;
 
 namespace KbcKegs.Models.Api
 {
-    public class DeliveryEventViewModel
+    public class CollectionEventViewModel
     {
-        public DeliveryEventViewModel()
+        public CollectionEventViewModel()
         {
             Assets = new List<AssetViewModel>();
         }
 
         public int Id { get; set; }
-        public int OrderId { get; set; }
-        public string OrderSourceId { get; set; }
-        public string OrderCustomerName { get; set; }
+        public int CustomerId { get; set; }
+        public string CustomerName { get; set; }
         public IEnumerable<AssetViewModel> Assets { get; set; }
     }
 }

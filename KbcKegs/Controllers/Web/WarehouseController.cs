@@ -15,12 +15,14 @@ namespace KbcKegs.Controllers.Web
         private KbcDbContext db = new KbcDbContext();
         private IEventRepository events;
         private IAssetRepository assets;
+        private ICustomerRepository customers;
         private IOrderRepository orders;
 
         public WarehouseController()
         {
             events = new EventRepository(db);
             assets = new AssetRepository(db);
+            customers = new CustomerRepository(db);
             orders = new OrderRepository(db);
         }
 
@@ -32,8 +34,10 @@ namespace KbcKegs.Controllers.Web
             {
                 RecentDeliveries = events.GetDeliveryEventsSince(since),
                 RecentCollections = events.GetCollectionEventsSince(since),
+                Customers = customers.AsQueryable.ToList(),
                 Orders = orders.AsQueryable.ToList(),
-                Assets = assets.AsQueryable.Where(a => a.State == Model.AssetState.Available).ToList(),
+                AssetsAvailable = assets.AsQueryable.Where(a => a.State == Model.AssetState.Available).ToList(),
+                AssetsWithCustomers = assets.AsQueryable.Where(a => a.State == Model.AssetState.WithCustomer).ToList(),
             };
 
             return View(vm);

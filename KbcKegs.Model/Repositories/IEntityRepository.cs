@@ -12,12 +12,12 @@ namespace KbcKegs.Model.Repositories
 
         IQueryable<T> AsQueryable { get; }
 
-        void Add(T entity);
+        void Add(T entity, bool commit = true);
 
-        void AddRange(IEnumerable<T> entities);
+        void AddRange(IEnumerable<T> entities, bool commit = true);
 
-        void Update(T entity);
+        void Update(T entity, bool commit = true);
 
-        void Remove(T entity);
+        void Remove(T entity, bool commit = true);
     }
 }

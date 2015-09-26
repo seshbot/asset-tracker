@@ -35,8 +35,6 @@ namespace KbcKegs.Model.Services
         {
             foreach (var asset in evt.Assets)
             {
-                _events.Add(evt);
-
                 asset.State = AssetState.WithCustomer;
                 asset.History.Add(new AssetEventInfo
                 {
@@ -47,14 +45,14 @@ namespace KbcKegs.Model.Services
 
                 _assets.Update(asset);
             }
+
+            _events.Add(evt);
         }
 
         public void HandleEvent(CollectionEvent evt)
         {
             foreach (var asset in evt.Assets)
             {
-                _events.Add(evt);
-
                 asset.State = AssetState.NeedsCleaning;
                 asset.History.Add(new AssetEventInfo
                 {
@@ -63,16 +61,16 @@ namespace KbcKegs.Model.Services
                     EventType = AssetEventType.Collected,
                 });
 
-                _assets.Update(asset);
+                _assets.Update(asset, commit: false);
             }
+
+            _events.Add(evt);
         }
 
         public void HandleEvent(CleaningEvent evt)
         {
             foreach (var asset in evt.Assets)
             {
-                _events.Add(evt);
-
                 asset.State = AssetState.Available;
                 asset.History.Add(new AssetEventInfo
                 {
@@ -81,8 +79,10 @@ namespace KbcKegs.Model.Services
                     EventType = AssetEventType.Collected,
                 });
 
-                _assets.Update(asset);
+                _assets.Update(asset, commit: false);
             }
+
+            _events.Add(evt);
         }
     }
 }

@@ -5,7 +5,7 @@
 }
 <div ng-app="app">
     <!-- Modal -->
-    <div ng-controller="WarehouseController" class="modal fade" id="newDeliveryModal" tabindex="-1" role="dialog">
+    <div ng-controller="NewDeliveryController" class="modal fade" id="newDeliveryModal" tabindex="-1" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -14,7 +14,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="control-label col-md-2" for="newDeliveryOrder">Order</label>
+                        <label class="control-label col-md-2">Order</label>
                         <div class="col-md-10">
                             <select ng-model="newDelivery.orderId" class="form-control" id="newDeliveryOrderId" name="OrderId">
                                 @foreach (var order in Model.Orders)
@@ -45,7 +45,7 @@
                                 <tr>
                                     <td>
                                         <select ng-model="selectedAssetId" class="form-control">
-                                            <option ng-repeat="asset in assets" value="{{asset.id}}">{{asset.serialNumber}}</option>
+                                            <option ng-repeat="asset in assetsAvailable" value="{{asset.id}}">{{asset.serialNumber}}</option>
                                         </select>
                                     </td>
                                     <td>{{selectedAsset.description}}</td>
@@ -58,7 +58,67 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" ng-click="addDelivery()">Save</button>
+                    <button type="button" class="btn btn-primary" ng-click="sendDelivery()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div ng-controller="NewCollectionController" class="modal fade" id="newCollectionModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h3 class="modal-title" id="newCollectionModalLabel">New Collection</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Customer</label>
+                        <div class="col-md-10">
+                            <select ng-model="newCollection.customerId" class="form-control" id="newCollectionCustomerId" name="CustomerId">
+                                @foreach (var customer in Model.Customers)
+                                {
+                                    <option value="@customer.Id">@customer.Name</option>
+                                }
+                            </select>
+                            <span class="field-validation-valid text-danger" data-valmsg-for="newCollectionCustomerId" data-valmsg-replace="true"></span>
+                            <p />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-2">
+                            <label class="control-label">Assets</label>
+                        </div>
+                        <div class="col-md-10">
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>Serial #</th>
+                                    <th>Description</th>
+                                    <th></th>
+                                </tr>
+                                <tr ng-repeat="asset in newCollection.assets">
+                                    <td>{{asset.serialNumber}}</td>
+                                    <td>{{asset.description}}</td>
+                                    <td><a href="" ng-click="removeAsset(asset)">remove</a></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <select ng-model="selectedAssetId" class="form-control">
+                                            <option ng-repeat="asset in assetsWithCustomers" value="{{asset.id}}">{{asset.serialNumber}}</option>
+                                        </select>
+                                    </td>
+                                    <td>{{selectedAsset.description}}</td>
+                                    <td><a href="" ng-click="addSelectedAsset()">add</a></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-click="sendCollection()">Send</button>
                 </div>
             </div>
         </div>
@@ -67,7 +127,7 @@
 
 <h2>Recent Events</h2>
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-5">
         <div class="panel panel-default">
             <div class="panel-heading">Deliveries <span class="pull-right"><a href="#" data-toggle="modal" data-target="#newDeliveryModal">+ add new</a></span></div>
             <table class="table">
@@ -89,7 +149,7 @@
     </div>
     <div class="col-md-4">
         <div class="panel panel-default">
-            <div class="panel-heading">Collections <span class="pull-right">+ add new</span></div>
+            <div class="panel-heading">Collections <span class="pull-right"><a href="#" data-toggle="modal" data-target="#newCollectionModal">+ add new</a></span></div>
             <table class="table">
                 <thead></thead>
                 <tbody>
@@ -106,16 +166,40 @@
             </table>
         </div>
     </div>
+    <div class="col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">Cleaning <span class="pull-right"><a href="#" data-toggle="modal" data-target="#newCollectionModal">+ add new</a></span></div>
+            <table class="table">
+                <thead></thead>
+                <tbody>
+                    <tr><th></th><th width="90"># Assets</th></tr>
+                    @foreach (var evt in Model.RecentCollections)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(m => evt.DateTime)</td>
+                            <td>@Html.DisplayFor(m => evt.Assets.Count)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 @section Scripts {
     @Scripts.Render("~/Scripts/warehouse/app.js")
 
     <script>
-        var assets = [
-            @foreach (var asset in Model.Assets)
+        var assetsAvailable = [
+            @foreach (var asset in Model.AssetsAvailable)
             {
                 @:{ id: @asset.Id, description: '@asset.Description', serialNumber: '@asset.SerialNumber' },
+            }
+        ];
+        var assetsWithCustomers = [
+            @foreach (var asset in Model.AssetsWithCustomers)
+        {
+            @:{ id: @asset.Id, description: '@asset.Description', serialNumber: '@asset.SerialNumber' },
             }
         ];
 
@@ -123,7 +207,8 @@
             document.location.reload();
         }
 
-        angular.module('app').value('assets', assets);
+        angular.module('app').value('assetsAvailable', assetsAvailable);
+        angular.module('app').value('assetsWithCustomers', assetsWithCustomers);
         angular.module('app').value('addSuccessCallback', addSuccessCallback);
     </script>
 }
