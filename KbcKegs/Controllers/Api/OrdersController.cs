@@ -13,36 +13,36 @@ using KbcKegs.Models.Api;
 
 namespace KbcKegs.Controllers.Api
 {
-    [RoutePrefix("api/assets")]
-    public class AssetsController : ApiController
+    [RoutePrefix("api/orders")]
+    public class OrdersController : ApiController
     {
         private KbcDbContext db = new KbcDbContext();
 
         [Route("")]
         [HttpGet]
-        public IEnumerable<AssetViewModel> GetAssetViewModels()
+        public IEnumerable<OrderViewModel> GetOrderViewModels()
         {
-            return db.Assets.Select(AssetViewModelExtensions.ToViewModel);
+            return db.Orders.Select(OrderViewModelExtensions.ToViewModel);
         }
 
-        [Route("{id}", Name = "GetAsset")]
+        [Route("{id}", Name = "GetOrder")]
         [HttpGet]
-        [ResponseType(typeof(AssetViewModel))]
-        public IHttpActionResult GetAsset(int id)
+        [ResponseType(typeof(OrderViewModel))]
+        public IHttpActionResult GetOrder(int id)
         {
-            var asset = db.Assets.Find(id);
-            if (asset == null)
+            var order = db.Orders.Find(id);
+            if (order == null)
             {
                 return NotFound();
             }
 
-            return Ok(asset.ToViewModel());
+            return Ok(order.ToViewModel());
         }
         
         [Route("{id}")]
         [HttpPut]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutAsset(int id, AssetViewModel vm)
+        public IHttpActionResult PutOrder(int id, OrderViewModel vm)
         {
             if (!ModelState.IsValid)
             {
@@ -54,9 +54,9 @@ namespace KbcKegs.Controllers.Api
                 return BadRequest();
             }
 
-            var asset = db.Assets.Find(vm.Id);
-            vm.UpdateDb(asset);
-            db.Entry(asset).State = EntityState.Modified;
+            var order = db.Orders.Find(vm.Id);
+            vm.UpdateDb(order);
+            db.Entry(order).State = EntityState.Modified;
 
             try
             {
@@ -64,7 +64,7 @@ namespace KbcKegs.Controllers.Api
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AssetExists(id))
+                if (!OrderExists(id))
                 {
                     return NotFound();
                 }
@@ -79,35 +79,35 @@ namespace KbcKegs.Controllers.Api
 
         [Route("")]
         [HttpPost]
-        [ResponseType(typeof(AssetViewModel))]
-        public IHttpActionResult PostAsset(AssetViewModel vm)
+        [ResponseType(typeof(OrderViewModel))]
+        public IHttpActionResult PostOrder(OrderViewModel vm)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Assets.Add(vm.ToNewDb());
+            db.Orders.Add(vm.ToNewDb());
             db.SaveChanges();
 
-            return CreatedAtRoute("GetAsset", new { id = vm.Id }, vm);
+            return CreatedAtRoute("GetOrder", new { id = vm.Id }, vm);
         }
 
         [Route("{id}")]
         [HttpDelete]
-        [ResponseType(typeof(AssetViewModel))]
-        public IHttpActionResult DeleteAsset(int id)
+        [ResponseType(typeof(OrderViewModel))]
+        public IHttpActionResult DeleteOrder(int id)
         {
-            var asset = db.Assets.Find(id);
-            if (asset == null)
+            var order = db.Orders.Find(id);
+            if (order == null)
             {
                 return NotFound();
             }
 
-            db.Assets.Remove(asset);
+            db.Orders.Remove(order);
             db.SaveChanges();
 
-            return Ok(asset.ToViewModel());
+            return Ok(order.ToViewModel());
         }
 
         protected override void Dispose(bool disposing)
@@ -119,9 +119,9 @@ namespace KbcKegs.Controllers.Api
             base.Dispose(disposing);
         }
 
-        private bool AssetExists(int id)
+        private bool OrderExists(int id)
         {
-            return db.Assets.Count(e => e.Id == id) > 0;
+            return db.Orders.Count(e => e.Id == id) > 0;
         }
     }
 }

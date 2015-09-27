@@ -13,36 +13,36 @@ using KbcKegs.Models.Api;
 
 namespace KbcKegs.Controllers.Api
 {
-    [RoutePrefix("api/assets")]
-    public class AssetsController : ApiController
+    [RoutePrefix("api/customers")]
+    public class CustomersController : ApiController
     {
         private KbcDbContext db = new KbcDbContext();
 
         [Route("")]
         [HttpGet]
-        public IEnumerable<AssetViewModel> GetAssetViewModels()
+        public IEnumerable<CustomerViewModel> GetCustomerViewModels()
         {
-            return db.Assets.Select(AssetViewModelExtensions.ToViewModel);
+            return db.Customers.Select(CustomerViewModelExtensions.ToViewModel);
         }
 
-        [Route("{id}", Name = "GetAsset")]
+        [Route("{id}", Name = "GetCustomer")]
         [HttpGet]
-        [ResponseType(typeof(AssetViewModel))]
-        public IHttpActionResult GetAsset(int id)
+        [ResponseType(typeof(CustomerViewModel))]
+        public IHttpActionResult GetCustomer(int id)
         {
-            var asset = db.Assets.Find(id);
-            if (asset == null)
+            var customer = db.Customers.Find(id);
+            if (customer == null)
             {
                 return NotFound();
             }
 
-            return Ok(asset.ToViewModel());
+            return Ok(customer.ToViewModel());
         }
         
         [Route("{id}")]
         [HttpPut]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutAsset(int id, AssetViewModel vm)
+        public IHttpActionResult PutCustomer(int id, CustomerViewModel vm)
         {
             if (!ModelState.IsValid)
             {
@@ -54,9 +54,9 @@ namespace KbcKegs.Controllers.Api
                 return BadRequest();
             }
 
-            var asset = db.Assets.Find(vm.Id);
-            vm.UpdateDb(asset);
-            db.Entry(asset).State = EntityState.Modified;
+            var customer = db.Customers.Find(vm.Id);
+            vm.UpdateDb(customer);
+            db.Entry(customer).State = EntityState.Modified;
 
             try
             {
@@ -64,7 +64,7 @@ namespace KbcKegs.Controllers.Api
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AssetExists(id))
+                if (!CustomerExists(id))
                 {
                     return NotFound();
                 }
@@ -79,35 +79,35 @@ namespace KbcKegs.Controllers.Api
 
         [Route("")]
         [HttpPost]
-        [ResponseType(typeof(AssetViewModel))]
-        public IHttpActionResult PostAsset(AssetViewModel vm)
+        [ResponseType(typeof(CustomerViewModel))]
+        public IHttpActionResult PostCustomer(CustomerViewModel vm)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Assets.Add(vm.ToNewDb());
+            db.Customers.Add(vm.ToNewDb());
             db.SaveChanges();
 
-            return CreatedAtRoute("GetAsset", new { id = vm.Id }, vm);
+            return CreatedAtRoute("GetCustomer", new { id = vm.Id }, vm);
         }
 
         [Route("{id}")]
         [HttpDelete]
-        [ResponseType(typeof(AssetViewModel))]
-        public IHttpActionResult DeleteAsset(int id)
+        [ResponseType(typeof(CustomerViewModel))]
+        public IHttpActionResult DeleteCustomer(int id)
         {
-            var asset = db.Assets.Find(id);
-            if (asset == null)
+            var customer = db.Customers.Find(id);
+            if (customer == null)
             {
                 return NotFound();
             }
 
-            db.Assets.Remove(asset);
+            db.Customers.Remove(customer);
             db.SaveChanges();
 
-            return Ok(asset.ToViewModel());
+            return Ok(customer.ToViewModel());
         }
 
         protected override void Dispose(bool disposing)
@@ -119,9 +119,9 @@ namespace KbcKegs.Controllers.Api
             base.Dispose(disposing);
         }
 
-        private bool AssetExists(int id)
+        private bool CustomerExists(int id)
         {
-            return db.Assets.Count(e => e.Id == id) > 0;
+            return db.Customers.Count(e => e.Id == id) > 0;
         }
     }
 }
