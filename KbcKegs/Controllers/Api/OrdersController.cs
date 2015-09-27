@@ -25,6 +25,20 @@ namespace KbcKegs.Controllers.Api
             return db.Orders.Select(OrderViewModelExtensions.ToViewModel);
         }
 
+        [Route("~/api/customers/{customerId}/orders")]
+        [HttpGet]
+        [ResponseType(typeof(IEnumerable<OrderViewModel>))]
+        public IHttpActionResult GetCustomerOrderViewModels(int customerId)
+        {
+            var customer = db.Customers.Find(customerId);
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(customer.Orders.Select(OrderViewModelExtensions.ToViewModel));
+        }
+
         [Route("{id}", Name = "GetOrder")]
         [HttpGet]
         [ResponseType(typeof(OrderViewModel))]

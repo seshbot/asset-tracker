@@ -63,6 +63,20 @@ namespace KbcKegs.Controllers.Api
             return db.CollectionEvents.Select(CreateViewModel);
         }
 
+        [Route("~/api/customers/{customerId}/collections/")]
+        [HttpGet]
+        [ResponseType(typeof(IEnumerable<CollectionEventViewModel>))]
+        public IHttpActionResult GetCustomerCollectionEvents(int customerId)
+        {
+            var customer = db.Customers.Find(customerId);
+            if (customer == null)
+            {
+                return NotFound();
+            }
+            
+            return Ok(customer.Collections.Select(CreateViewModel));
+        }
+
         [Route("{id}",Name = "GetCollectionEvent")]
         [HttpGet]
         [ResponseType(typeof(CollectionEventViewModel))]

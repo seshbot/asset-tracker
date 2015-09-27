@@ -16,5 +16,6 @@ namespace KbcKegs.Model
         public string Name { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<CollectionEvent> Collections { get; set; }
     }
 }
