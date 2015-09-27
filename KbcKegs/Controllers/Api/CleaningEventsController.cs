@@ -39,13 +39,7 @@ namespace KbcKegs.Controllers.Api
             return new CleaningEventViewModel
             {
                 Id = evt.Id,
-                Assets = evt.Assets.Select(a => 
-                    new AssetViewModel
-                    {
-                        Id = a.Id,
-                        SerialNumber = a.SerialNumber,
-                        Description = a.Description,
-                    }).ToList(),
+                Assets = evt.Assets.Select(AssetViewModelExtensions.ToViewModel).ToList(),
             };
         }
 

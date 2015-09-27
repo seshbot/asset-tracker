@@ -41,13 +41,7 @@ namespace KbcKegs.Controllers.Api
                 Id = evt.Id,
                 CustomerId = evt.CustomerId,
                 CustomerName = evt.Customer?.Name,
-                Assets = evt.Assets.Select(a => 
-                    new AssetViewModel
-                    {
-                        Id = a.Id,
-                        SerialNumber = a.SerialNumber,
-                        Description = a.Description,
-                    }).ToList(),
+                Assets = evt.Assets.Select(AssetViewModelExtensions.ToViewModel).ToList(),
             };
         }
 
