@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,10 @@ namespace KbcKegs.Model
         public string SerialNumber { get; set; }
         [Required]
         public AssetState State { get; set; }
+
+        [ForeignKey("WithCustomer")]
+        public int? WithCustomerId { get; set; }
+        public Customer WithCustomer { get; set; }
 
         public virtual ICollection<AssetEventInfo> History { get; set; }
     }

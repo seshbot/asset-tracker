@@ -8,25 +8,32 @@
 </div>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
         <h2>Create Assets</h2>
         <p>
             Assets are kegs or whatever we own that has a lifecycle worth tracking. Assets can be delivered, returned, cleaned and made available.
         </p>
         <p>@Html.ActionLink("Manage Assets", "Index", "Assets", new { }, new { @class = "btn btn-primary" })</p>
     </div>
-    <div class="col-md-4">
-        <h2>Manage Customers</h2>
+    <div class="col-md-3">
+        <h2>Customers</h2>
         <p>
             I imagine customers will generally be imported from Shopify or Xero. But for now just manage them through the 'customers' admin area (see the nav bar above)
         </p>
         <p>@Html.ActionLink("Manage Customers", "Index", "Customers", new { }, new { @class = "btn btn-primary" })</p>
     </div>
-    <div class="col-md-4">
-        <h2>Manage Orders</h2>
+    <div class="col-md-3">
+        <h2>Orders</h2>
         <p>
             Similarly, orders will probably be retrieved dynamically from Shopify or Xero, or perhaps created ad-hoc. But for now just manage them through the 'orders' admin area (see the nav bar above)
         </p>
         <p>@Html.ActionLink("Manage Orders", "Index", "Orders", new { }, new { @class = "btn btn-primary" })</p>
+    </div>
+    <div class="col-md-3">
+        <h2>Warehouse</h2>
+        <p>
+            The warehouse area allows us to register 'delivery', 'collection' and 'cleaning' events that will modify the underlying inventory model.
+        </p>
+        <p>@Html.ActionLink("Manage Warehouse", "Index", "Warehouse", new { }, new { @class = "btn btn-primary" })</p>
     </div>
 </div>

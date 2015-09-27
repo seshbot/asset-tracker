@@ -36,6 +36,7 @@ namespace KbcKegs.Model.Services
             foreach (var asset in evt.Assets)
             {
                 asset.State = AssetState.WithCustomer;
+                asset.WithCustomerId = evt.Order.CustomerId;
                 asset.History.Add(new AssetEventInfo
                 {
                     AssetId = asset.Id,
@@ -43,7 +44,7 @@ namespace KbcKegs.Model.Services
                     EventType = AssetEventType.Delivered,
                 });
 
-                _assets.Update(asset);
+                _assets.Update(asset, commit: false);
             }
 
             _events.Add(evt);
@@ -54,6 +55,7 @@ namespace KbcKegs.Model.Services
             foreach (var asset in evt.Assets)
             {
                 asset.State = AssetState.NeedsCleaning;
+                asset.WithCustomerId = null;
                 asset.History.Add(new AssetEventInfo
                 {
                     AssetId = asset.Id,

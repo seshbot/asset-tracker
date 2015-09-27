@@ -25,6 +25,20 @@ namespace KbcKegs.Controllers.Api
             return db.Assets.Select(AssetViewModelExtensions.ToViewModel);
         }
 
+        [Route("~/api/customers/{customerId}/assets")]
+        [HttpGet]
+        [ResponseType(typeof(IEnumerable<AssetViewModel>))]
+        public IHttpActionResult GetCustomerAssetViewModels(int customerId)
+        {
+            var customer = db.Customers.Find(customerId);
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(customer.Assets.Select(AssetViewModelExtensions.ToViewModel));
+        }
+
         [Route("{id}", Name = "GetAsset")]
         [HttpGet]
         [ResponseType(typeof(AssetViewModel))]
