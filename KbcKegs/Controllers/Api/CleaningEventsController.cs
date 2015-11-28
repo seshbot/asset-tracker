@@ -39,6 +39,7 @@ namespace KbcKegs.Controllers.Api
             return new CleaningEventViewModel
             {
                 Id = evt.Id,
+                DateTime = evt.DateTime,
                 Assets = evt.Assets.Select(AssetViewModelExtensions.ToViewModel).ToList(),
             };
         }
@@ -48,7 +49,7 @@ namespace KbcKegs.Controllers.Api
         {
             return new CleaningEvent
             {
-                DateTime = DateTime.UtcNow,
+                DateTime = DateTime.UtcNow, // dont copy from vm - we are creating a new event
                 Assets = vm.Assets.Select(a => assets.GetById(a.Id)).ToList(),
             };
         }

@@ -11,9 +11,11 @@ namespace KbcKegs.Models.Api
         public CleaningEventViewModel()
         {
             Assets = new List<AssetViewModel>();
+            DateTime = DateTime.Now;
         }
 
         public int Id { get; set; }
+        public DateTime DateTime { get; set; }
         public IEnumerable<AssetViewModel> Assets { get; set; }
     }
 }

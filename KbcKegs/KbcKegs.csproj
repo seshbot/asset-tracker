@@ -362,6 +362,10 @@
       <Project>{9aa75b38-2ae1-4733-a883-46295da369e0}</Project>
       <Name>KbcKegs.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\KbcKegs.Utils\KbcKegs.Utils.csproj">
+      <Project>{07c30262-9a34-4a9d-8e04-1954877b15da}</Project>
+      <Name>KbcKegs.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

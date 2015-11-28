@@ -10,10 +10,22 @@ namespace KbcKegs.Models.Api
     {
         public DeliveryEventViewModel()
         {
-            Assets = new List<AssetViewModel>();
+            OrderFulfillments = new List<OrderFulfillmentViewModel>();
+            DateTime = DateTime.Now;
         }
 
         public int Id { get; set; }
+        public DateTime DateTime { get; set; }
+        public IEnumerable<OrderFulfillmentViewModel> OrderFulfillments { get; set; }
+    }
+
+    public class OrderFulfillmentViewModel
+    {
+        public OrderFulfillmentViewModel()
+        {
+            Assets = new List<AssetViewModel>();
+        }
+
         public int OrderId { get; set; }
         public string OrderSourceId { get; set; }
         public string OrderCustomerName { get; set; }

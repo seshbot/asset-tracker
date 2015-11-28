@@ -180,14 +180,13 @@
             <table class="table">
                 <thead></thead>
                 <tbody>
-                    <tr><th></th><th>Order ID</th><th>Customer ID</th><th width="90"># Assets</th></tr>
+                    <tr><th></th><th># Order Fulfillments</th><th width="90"># Total Assets</th></tr>
                     @foreach (var evt in Model.RecentDeliveries.Reverse())
                     {
                         <tr>
                             <td>@Html.DisplayFor(m => evt.DateTime)</td>
-                            <td>@Html.DisplayFor(m => evt.OrderId)</td>
-                            <td>@Html.DisplayFor(m => evt.Order.CustomerId)</td>
-                            <td>@Html.DisplayFor(m => evt.Assets.Count)</td>
+                            <td>@evt.OrderFulfillments.Count</td>
+                            <td>@evt.OrderFulfillments.SelectMany(f => f.Assets).Count()</td>
                         </tr>
                     }
                 </tbody>

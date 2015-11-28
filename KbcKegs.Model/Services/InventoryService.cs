@@ -33,10 +33,11 @@ namespace KbcKegs.Model.Services
 
         public void HandleEvent(DeliveryEvent evt)
         {
-            foreach (var asset in evt.Assets)
+            foreach (var fulfillment in evt.OrderFulfillments)
+            foreach (var asset in fulfillment.Assets)
             {
                 asset.State = AssetState.WithCustomer;
-                asset.WithCustomerId = evt.Order.CustomerId;
+                asset.WithCustomerId = fulfillment.Order.CustomerId;
                 asset.History.Add(new AssetEventInfo
                 {
                     AssetId = asset.Id,

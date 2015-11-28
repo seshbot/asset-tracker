@@ -10,6 +10,7 @@
     function NewDeliveryController($scope, $http, assetsAvailable, addSuccessCallback) {
         $scope.assetsAvailable = assetsAvailable;
 
+        // TODO: cannot create a delivery with more than one fulfillment through the warehouse UI currently
         $scope.newDelivery = {
             orderId: -1,
             assets: []
@@ -60,7 +61,10 @@
         function send() {
             if (!canSend()) return;
 
-            $http.post('/api/deliveries/', $scope.newDelivery)
+            var delivery = {
+                orderFulfillments: [ $scope.newDelivery, ],
+            };
+            $http.post('/api/deliveries/', delivery)
                  .then(handleAddSuccess, handleAddFailure);
 
             function handleAddSuccess(response) {
