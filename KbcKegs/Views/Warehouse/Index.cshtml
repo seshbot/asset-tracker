@@ -16,13 +16,21 @@
                     <div class="form-group">
                         <label class="control-label col-md-2">Order</label>
                         <div class="col-md-10">
-                            <select ng-model="newDelivery.orderId" class="form-control" id="newDeliveryOrderId" name="OrderId">
+                            <label>
+                                <input type="radio" ng-model="newDelivery.manualOrderDetails" ng-value="false" />existing
+                            </label>
+                            <label>
+                                <input type="radio" ng-model="newDelivery.manualOrderDetails" ng-value="true" />create new
+                            </label>
+                            <select ng-hide="newDelivery.manualOrderDetails" ng-model="newDelivery.orderId" class="form-control" id="newDeliveryOrderId" name="OrderId">
                                 @foreach (var order in Model.Orders)
                                 {
                                     <option value="@order.Id">@order.SourceId (@order.Customer.Name)</option>
                                 }
                             </select>
                             <span class="field-validation-valid text-danger" data-valmsg-for="newDeliveryOrderId" data-valmsg-replace="true"></span>
+                            <input placeholder="Order ID" type="text" ng-show="newDelivery.manualOrderDetails" ng-model="newDelivery.orderSourceId" class="form-control" />
+                            <input placeholder="Customer ID" type="text" ng-show="newDelivery.manualOrderDetails" ng-model="newDelivery.orderCustomerSourceId" class="form-control" />
                             <p />
                         </div>
                     </div>

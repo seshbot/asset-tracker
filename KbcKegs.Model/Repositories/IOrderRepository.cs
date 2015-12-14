@@ -9,5 +9,6 @@ namespace KbcKegs.Model.Repositories
 {
     public interface IOrderRepository : IEntityRepository<Order>
     {
+        Order GetBySourceId(string sourceId);
     }
 }

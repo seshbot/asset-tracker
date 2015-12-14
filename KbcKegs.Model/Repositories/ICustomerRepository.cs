@@ -9,5 +9,6 @@ namespace KbcKegs.Model.Repositories
 {
     public interface ICustomerRepository : IEntityRepository<Customer>
     {
+        Customer GetBySourceId(string sourceId);
     }
 }

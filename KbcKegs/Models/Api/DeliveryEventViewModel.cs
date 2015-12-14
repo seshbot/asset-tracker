@@ -26,9 +26,9 @@ namespace KbcKegs.Models.Api
             Assets = new List<AssetViewModel>();
         }
 
-        public int OrderId { get; set; }
+        public int? OrderId { get; set; }
         public string OrderSourceId { get; set; }
-        public string OrderCustomerName { get; set; }
+        public string OrderCustomerSourceId { get; set; }
         public IEnumerable<AssetViewModel> Assets { get; set; }
     }
 }

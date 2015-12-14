@@ -12,7 +12,10 @@
 
         // TODO: cannot create a delivery with more than one fulfillment through the warehouse UI currently
         $scope.newDelivery = {
+            manualOrderDetails: false,
             orderId: -1,
+            orderSourceId: '',
+            orderCustomerSourceId: '',
             assets: []
         };
 
@@ -51,11 +54,13 @@
         };
 
         function canSend() {
-            var result =
-                ($scope.newDelivery.orderId != -1 &&
-                 $scope.newDelivery.assets.length > 0);
+            var orderSpecified = $scope.newDelivery.manualOrderDetails
+                ? ($scope.newDelivery.orderSourceId !== '' && $scope.newDelivery.orderCustomerSourceId !== '')
+                : ($scope.newDelivery.orderId != -1);
 
-            return result;
+            var assetsSpecified = $scope.newDelivery.assets.length > 0;
+
+            return orderSpecified && assetsSpecified;
         };
 
         function send() {

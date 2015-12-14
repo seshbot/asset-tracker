@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,9 +11,10 @@ namespace KbcKegs.Model
 {
     public class Customer : BaseEntity
     {
+        [Index]
+        [MaxLength(128)]
         public string SourceId { get; set; }
 
-        [Required]
         public string Name { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }
