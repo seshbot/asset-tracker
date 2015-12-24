@@ -31,6 +31,22 @@ namespace KbcKegs.Model.Services
             _events = events;
         }
 
+        public Asset FindAssetById(int id)
+        {
+            return _assets.GetById(id);
+        }
+
+        public Asset CreateAsset(string serialNumber, AssetState state, string description)
+        {
+            var result = _assets.GetBySerialNumber(serialNumber);
+            if (result == null)
+            {
+                result = new Asset { SerialNumber = serialNumber, State = state, Description = description };
+                _assets.Add(result);
+            }
+            return result;
+        }
+
         public void HandleEvent(DeliveryEvent evt)
         {
             foreach (var fulfillment in evt.OrderFulfillments)

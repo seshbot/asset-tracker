@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using KbcKegs.Data;
 using KbcKegs.Model;
+using PagedList;
 
 namespace KbcKegs.Controllers.Web
 {
@@ -17,9 +18,12 @@ namespace KbcKegs.Controllers.Web
         private KbcDbContext db = new KbcDbContext();
 
         // GET: Assets
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View(db.Assets.ToList());
+            int pageSize = 20;
+            int pageNumber = (page ?? 1);
+
+            return View(db.Assets.OrderBy(a => a.SerialNumber).ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Assets/Details/5

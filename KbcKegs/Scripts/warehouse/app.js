@@ -19,10 +19,17 @@
             assets: []
         };
 
+        $scope.newAsset = {
+            serialNumber: '',
+            description: ''
+        };
+
         $scope.selectedAssetId = -1;
         $scope.selectedAsset = null;
         $scope.removeAsset = removeAsset;
         $scope.addSelectedAsset = addSelectedAsset;
+        $scope.canAddNewAsset = canAddNewAsset;
+        $scope.addNewAsset = addNewAsset;
         $scope.canSend = canSend;
         $scope.send = send;
 
@@ -38,6 +45,18 @@
 
             if (null == asset) return;
             moveAsset(asset, $scope.assetsAvailable, $scope.newDelivery.assets);
+        };
+
+        function canAddNewAsset() {
+            var asset = $scope.newAsset;
+            return asset.serialNumber !== '';
+        };
+
+        function addNewAsset() {
+            if (!canAddNewAsset()) return;
+            // clone - we could also use jQuery.extend({}, $scope.newAsset);
+            var asset = JSON.parse(JSON.stringify($scope.newAsset));
+            moveAsset(asset, [], $scope.newDelivery.assets);
         };
 
         function handleSelectedAssetIdChanged(newValue, oldValue) {
@@ -261,6 +280,10 @@
         }
 
         toArray.push(asset);
-        toArray.sort(function (a, b) { return a.id - b.id });
+        toArray.sort(function (a, b) {
+            if (!a.hasOwnProperty('id')) return -1;
+            if (!b.hasOwnProperty('id')) return 1;
+            return a.id - b.id
+        });
     };
 })();

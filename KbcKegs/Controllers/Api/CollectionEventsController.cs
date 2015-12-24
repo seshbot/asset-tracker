@@ -52,7 +52,9 @@ namespace KbcKegs.Controllers.Api
             return new CollectionEvent
             {
                 DateTime = DateTime.UtcNow, // dont copy from vm - we are creating a new event
-                Assets = vm.Assets.Select(a => assets.GetById(a.Id)).ToList(),
+                Assets = vm.Assets.Select(a => a.Id.HasValue
+                    ? inventory.FindAssetById(a.Id.Value)
+                    : inventory.CreateAsset(a.SerialNumber, AssetState.WithCustomer, a.Description)).ToList(),
                 CustomerId = vm.CustomerId,
             };
         }

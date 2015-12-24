@@ -9,5 +9,6 @@ namespace KbcKegs.Model.Repositories
 {
     public interface IAssetRepository : IEntityRepository<Asset>
     {
+        Asset GetBySerialNumber(string serialNumber);
     }
 }

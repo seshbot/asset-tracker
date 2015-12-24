@@ -10,11 +10,21 @@ namespace KbcKegs.Model
 {
     public class DeliveryEvent : BaseEvent
     {
+        public DeliveryEvent()
+        {
+            OrderFulfillments = new List<OrderFulfillment>();
+        }
+
         public virtual ICollection<OrderFulfillment> OrderFulfillments { get; set; }
     }
 
     public class OrderFulfillment : BaseEntity
     {
+        public OrderFulfillment()
+        {
+            Assets = new List<Asset>();
+        }
+
         [ForeignKey("Order")]
         public int OrderId { get; set; }
         public virtual Order Order { get; set; }

@@ -59,6 +59,15 @@
                                     <td>{{selectedAsset.description}}</td>
                                     <td><a href="" ng-click="addSelectedAsset()">add</a></td>
                                 </tr>
+                                <tr>
+                                    <td>
+                                        <input placeholder="Serial #" type="text" ng-model="newAsset.serialNumber" class="form-control" />
+                                    </td>
+                                    <td>
+                                        <input placeholder="Description" type="text" ng-model="newAsset.description" class="form-control" />
+                                    </td>
+                                    <td><a href="" ng-click="addNewAsset()">create</a></td>
+                                </tr>
                             </table>
                         </div>
                     </div>
@@ -87,7 +96,7 @@
                             <select ng-model="newCollection.customerId" class="form-control" id="newCollectionCustomerId" name="CustomerId">
                                 @foreach (var customer in Model.Customers)
                                 {
-                                    <option value="@customer.Id">@customer.Name</option>
+                                    <option value="@customer.Id">@customer.Name (@customer.SourceId)</option>
                                 }
                             </select>
                             <span class="field-validation-valid text-danger" data-valmsg-for="newCollectionCustomerId" data-valmsg-replace="true"></span>

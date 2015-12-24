@@ -1,4 +1,6 @@
-﻿@model IEnumerable<KbcKegs.Model.Asset>
+﻿@model PagedList.IPagedList<KbcKegs.Model.Asset>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Index";
@@ -21,13 +23,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SerialNumber)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().SerialNumber)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.State)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().State)
         </th>
         <th></th>
     </tr>
@@ -52,6 +54,10 @@
 }
 
 </table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
 
 @section Scripts {
     <script>

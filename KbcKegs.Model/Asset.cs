@@ -19,9 +19,16 @@ namespace KbcKegs.Model
 
     public class Asset : BaseEntity
     {
+        public Asset()
+        {
+            History = new List<AssetEventInfo>();
+        }
+
         public string Description { get; set; }
 
         [Required]
+        [MaxLength(128)]
+        [Index]
         public string SerialNumber { get; set; }
         [Required]
         public AssetState State { get; set; }

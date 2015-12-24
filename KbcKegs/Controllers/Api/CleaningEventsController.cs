@@ -50,7 +50,9 @@ namespace KbcKegs.Controllers.Api
             return new CleaningEvent
             {
                 DateTime = DateTime.UtcNow, // dont copy from vm - we are creating a new event
-                Assets = vm.Assets.Select(a => assets.GetById(a.Id)).ToList(),
+                Assets = vm.Assets.Select(a => a.Id.HasValue
+                    ? inventory.FindAssetById(a.Id.Value)
+                    : inventory.CreateAsset(a.SerialNumber, AssetState.NeedsCleaning, a.Description)).ToList(),
             };
         }
 

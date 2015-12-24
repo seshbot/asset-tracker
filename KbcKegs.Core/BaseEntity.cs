@@ -8,7 +8,14 @@ namespace KbcKegs.Core
 {
     public class BaseEntity
     {
+        public BaseEntity()
+        {
+            DateCreated = DateTime.UtcNow;
+        }
+
         public int Id { get; set; }
+
+        public DateTime DateCreated { get; set; }
 
         public virtual ICollection<Note> Notes { get; set; }
 
