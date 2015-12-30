@@ -28,9 +28,11 @@ namespace KbcKegs.Data
 
             var assetTypes = new Dictionary<string, AssetType>
             {
-                { "20L Keg", new AssetType { Description = "20L Keg", AssetPrefix = "20" } },
-                { "15L Keg", new AssetType { Description = "15L Keg", AssetPrefix = "15" } },
-                { "10L Keg", new AssetType { Description = "10L Keg", AssetPrefix = "10" } },
+                { "S10", new AssetType { Description = "Schaeffer 10L Keg", AssetPrefix = "S10" } },
+                { "S15", new AssetType { Description = "Schaeffer 15L Keg", AssetPrefix = "S15" } },
+                { "S20", new AssetType { Description = "Schaeffer 20L Keg", AssetPrefix = "S20" } },
+                { "U10", new AssetType { Description = "Used 10L Keg", AssetPrefix = "U10" } },
+                { "U20", new AssetType { Description = "Used 20L Keg", AssetPrefix = "U20" } },
             };
 
             context.AssetTypes.AddRange(assetTypes.Values);
@@ -39,30 +41,30 @@ namespace KbcKegs.Data
 
             context.Assets.AddRange(new List<Asset>
             {
-                new Asset { SerialNumber = "S200001", AssetType = assetTypes["20L Keg"], State = AssetState.Available },
-                new Asset { SerialNumber = "S200002", AssetType = assetTypes["20L Keg"], State = AssetState.Available },
-                new Asset { SerialNumber = "S200003", AssetType = assetTypes["20L Keg"], State = AssetState.Available },
-                new Asset { SerialNumber = "S200004", AssetType = assetTypes["20L Keg"], State = AssetState.Available },
-                new Asset { SerialNumber = "S200005", AssetType = assetTypes["20L Keg"], State = AssetState.Available },
-                new Asset { SerialNumber = "S200006", AssetType = assetTypes["20L Keg"], State = AssetState.Available },
-                new Asset { SerialNumber = "S200007", AssetType = assetTypes["20L Keg"], State = AssetState.Available },
-                new Asset { SerialNumber = "S200008", AssetType = assetTypes["20L Keg"], State = AssetState.Available },
-                new Asset { SerialNumber = "S200009", AssetType = assetTypes["20L Keg"], State = AssetState.Available },
-                new Asset { SerialNumber = "S200010", AssetType = assetTypes["20L Keg"], State = AssetState.Available },
-                new Asset { SerialNumber = "S200011", AssetType = assetTypes["20L Keg"], State = AssetState.Available },
-                new Asset { SerialNumber = "S200012", AssetType = assetTypes["20L Keg"], State = AssetState.Available },
-                new Asset { SerialNumber = "S200013", AssetType = assetTypes["20L Keg"], State = AssetState.Available },
-                new Asset { SerialNumber = "S200014", AssetType = assetTypes["20L Keg"], State = AssetState.Available },
-                new Asset { SerialNumber = "S150001", AssetType = assetTypes["15L Keg"], State = AssetState.Available },
-                new Asset { SerialNumber = "S150002", AssetType = assetTypes["15L Keg"], State = AssetState.Available },
-                new Asset { SerialNumber = "S150003", AssetType = assetTypes["15L Keg"], State = AssetState.Available },
-                new Asset { SerialNumber = "S150004", AssetType = assetTypes["15L Keg"], State = AssetState.Available },
-                new Asset { SerialNumber = "S150005", AssetType = assetTypes["15L Keg"], State = AssetState.Available },
-                new Asset { SerialNumber = "S100001", AssetType = assetTypes["10L Keg"], State = AssetState.Available },
-                new Asset { SerialNumber = "S100002", AssetType = assetTypes["10L Keg"], State = AssetState.Available },
-                new Asset { SerialNumber = "S100003", AssetType = assetTypes["10L Keg"], State = AssetState.Available },
-                new Asset { SerialNumber = "S100004", AssetType = assetTypes["10L Keg"], State = AssetState.Available },
-                new Asset { SerialNumber = "S100005", AssetType = assetTypes["10L Keg"], State = AssetState.Available },
+                new Asset { SerialNumber = "S200001", AssetType = assetTypes["S20"], State = AssetState.Available },
+                new Asset { SerialNumber = "S200002", AssetType = assetTypes["S20"], State = AssetState.Available },
+                new Asset { SerialNumber = "S200003", AssetType = assetTypes["S20"], State = AssetState.Available },
+                new Asset { SerialNumber = "S200004", AssetType = assetTypes["S20"], State = AssetState.Available },
+                new Asset { SerialNumber = "S200005", AssetType = assetTypes["S20"], State = AssetState.Available },
+                new Asset { SerialNumber = "S200006", AssetType = assetTypes["S20"], State = AssetState.Available },
+                new Asset { SerialNumber = "S200007", AssetType = assetTypes["S20"], State = AssetState.Available },
+                new Asset { SerialNumber = "S200008", AssetType = assetTypes["S20"], State = AssetState.Available },
+                new Asset { SerialNumber = "S200009", AssetType = assetTypes["S20"], State = AssetState.Available },
+                new Asset { SerialNumber = "S200010", AssetType = assetTypes["S20"], State = AssetState.Available },
+                new Asset { SerialNumber = "S200011", AssetType = assetTypes["S20"], State = AssetState.Available },
+                new Asset { SerialNumber = "S200012", AssetType = assetTypes["S20"], State = AssetState.Available },
+                new Asset { SerialNumber = "S200013", AssetType = assetTypes["S20"], State = AssetState.Available },
+                new Asset { SerialNumber = "S200014", AssetType = assetTypes["S20"], State = AssetState.Available },
+                new Asset { SerialNumber = "S150001", AssetType = assetTypes["S15"], State = AssetState.Available },
+                new Asset { SerialNumber = "S150002", AssetType = assetTypes["S15"], State = AssetState.Available },
+                new Asset { SerialNumber = "S150003", AssetType = assetTypes["S15"], State = AssetState.Available },
+                new Asset { SerialNumber = "S150004", AssetType = assetTypes["S15"], State = AssetState.Available },
+                new Asset { SerialNumber = "S150005", AssetType = assetTypes["S15"], State = AssetState.Available },
+                new Asset { SerialNumber = "S100001", AssetType = assetTypes["S10"], State = AssetState.Available },
+                new Asset { SerialNumber = "S100002", AssetType = assetTypes["S10"], State = AssetState.Available },
+                new Asset { SerialNumber = "S100003", AssetType = assetTypes["S10"], State = AssetState.Available },
+                new Asset { SerialNumber = "S100004", AssetType = assetTypes["S10"], State = AssetState.Available },
+                new Asset { SerialNumber = "S100005", AssetType = assetTypes["S10"], State = AssetState.Available },
             });
 
             context.SaveChanges();
