@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using KbcKegs.Data;
 using KbcKegs.Models.Api;
+using KbcKegs.Model.Services;
 
 namespace KbcKegs.Controllers.Api
 {
@@ -17,6 +18,18 @@ namespace KbcKegs.Controllers.Api
     public class AssetsController : ApiController
     {
         private KbcDbContext db = new KbcDbContext();
+        private IInventoryService _inventory;
+
+        public AssetsController()
+        {
+            var assetTypes = new AssetTypeRepository(db);
+            var assets = new AssetRepository(db);
+            var orders = new OrderRepository(db);
+            var customers = new CustomerRepository(db);
+            var events = new EventRepository(db);
+
+            _inventory = new InventoryService(assetTypes, assets, customers, orders, events);
+        }
 
         [Route("")]
         [HttpGet]
@@ -68,13 +81,9 @@ namespace KbcKegs.Controllers.Api
                 return BadRequest();
             }
 
-            var asset = db.Assets.Find(vm.Id);
-            vm.UpdateDb(asset);
-            db.Entry(asset).State = EntityState.Modified;
-
             try
             {
-                db.SaveChanges();
+                _inventory.MergeAsset(vm.Id, vm.SerialNumber, vm.Description);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -101,8 +110,8 @@ namespace KbcKegs.Controllers.Api
                 return BadRequest(ModelState);
             }
 
-            db.Assets.Add(vm.ToNewDb());
-            db.SaveChanges();
+            var asset = _inventory.CreateAsset(vm.SerialNumber, vm.Description);
+            vm.Id = asset.Id;
 
             return CreatedAtRoute("GetAsset", new { id = vm.Id }, vm);
         }

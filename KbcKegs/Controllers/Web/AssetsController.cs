@@ -38,12 +38,15 @@ namespace KbcKegs.Controllers.Web
             {
                 return HttpNotFound();
             }
+
+            ViewBag.AssetTypeId = new SelectList(db.AssetTypes, "Id", "Description");
             return View(asset);
         }
 
         // GET: Assets/Create
         public ActionResult Create()
         {
+            ViewBag.AssetTypeId = new SelectList(db.AssetTypes, "Id", "Description");
             return View();
         }
 
@@ -61,6 +64,7 @@ namespace KbcKegs.Controllers.Web
                 return RedirectToAction("Index");
             }
 
+            ViewBag.AssetTypeId = new SelectList(db.AssetTypes, "Id", "Description");
             return View(asset);
         }
 

@@ -20,17 +20,19 @@ namespace KbcKegs.Controllers.Api
     public class CleaningEventsController : ApiController
     {
         private KbcDbContext db = new KbcDbContext();
+        private IAssetTypeRepository assetTypes;
         private IAssetRepository assets;
         private IInventoryService inventory;
 
         public CleaningEventsController()
         {
+            assetTypes = new AssetTypeRepository(db);
             assets = new AssetRepository(db);
             var customers = new CustomerRepository(db);
             var orders = new OrderRepository(db);
             var events = new EventRepository(db);
 
-            inventory = new InventoryService(assets, customers, orders, events);
+            inventory = new InventoryService(assetTypes, assets, customers, orders, events);
         }
 
         [NonAction]
@@ -50,9 +52,8 @@ namespace KbcKegs.Controllers.Api
             return new CleaningEvent
             {
                 DateTime = DateTime.UtcNow, // dont copy from vm - we are creating a new event
-                Assets = vm.Assets.Select(a => a.Id.HasValue
-                    ? inventory.FindAssetById(a.Id.Value)
-                    : inventory.CreateAsset(a.SerialNumber, AssetState.NeedsCleaning, a.Description)).ToList(),
+                Assets = vm.Assets.Select(a =>
+                    inventory.MergeAsset(a.Id, a.SerialNumber, a.Description)).ToList(),
             };
         }
 
@@ -92,9 +93,9 @@ namespace KbcKegs.Controllers.Api
 
             inventory.HandleEvent(newEvent);
 
-            cleaningEvent.Id = newEvent.Id;
+            var newEventViewModel = CreateViewModel(newEvent);
 
-            return CreatedAtRoute("GetCleaningEvent", new { id = cleaningEvent.Id }, cleaningEvent);
+            return CreatedAtRoute("GetCleaningEvent", new { id = newEventViewModel.Id }, newEventViewModel);
         }
         
         [Route("{id}")]

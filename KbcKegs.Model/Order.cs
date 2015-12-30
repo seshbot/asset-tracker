@@ -1,6 +1,7 @@
 ﻿using KbcKegs.Core;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace KbcKegs.Model
         public string SourceId { get; set; }
 
         [ForeignKey("Customer")]
+        [DisplayName("Customer")]
         public int CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
 

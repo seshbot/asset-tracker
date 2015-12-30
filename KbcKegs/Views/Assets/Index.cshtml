@@ -23,7 +23,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().Description)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().AssetType.Description)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().SerialNumber)
@@ -37,7 +37,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Description)
+            @Html.DisplayFor(modelItem => item.AssetType.Description)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.SerialNumber)

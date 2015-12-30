@@ -9,125 +9,109 @@ using System.Web.Mvc;
 using KbcKegs.Data;
 using KbcKegs.Model;
 
-namespace KbcKegs.Controllers.Web
+namespace KbcKegs.Controllers
 {
-    [Authorize]
-    public class OrdersController : Controller
+    public class AssetTypesController : Controller
     {
         private KbcDbContext db = new KbcDbContext();
 
-        // GET: Orders
+        // GET: AssetTypes
         public ActionResult Index()
         {
-            var orders = db.Orders.Include(o => o.Customer);
-            return View(orders.ToList());
+            return View(db.AssetTypes.ToList());
         }
 
-        // GET: Orders/Details/5
+        // GET: AssetTypes/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = db.Orders.Find(id);
-            if (order == null)
+            AssetType assetType = db.AssetTypes.Find(id);
+            if (assetType == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CustomerId = new SelectList(db.Customers, "Id", "SourceId");
-            return View(order);
+            return View(assetType);
         }
 
-        // GET: Orders/Create
+        // GET: AssetTypes/Create
         public ActionResult Create()
         {
-            ViewBag.CustomerId = new SelectList(db.Customers, "Id", "SourceId");
             return View();
         }
 
-        // POST: Orders/Create
+        // POST: AssetTypes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,SourceId,CustomerId")] Order order)
+        public ActionResult Create([Bind(Include = "Id,Description,AssetPrefix")] AssetType assetType)
         {
             if (ModelState.IsValid)
             {
-                db.Orders.Add(order);
+                db.AssetTypes.Add(assetType);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CustomerId = new SelectList(db.Customers, "Id", "SourceId", order.CustomerId);
-            return View(order);
+            return View(assetType);
         }
 
-        // GET: Orders/Edit/5
+        // GET: AssetTypes/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = db.Orders.Find(id);
-            if (order == null)
+            AssetType assetType = db.AssetTypes.Find(id);
+            if (assetType == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CustomerId = new SelectList(db.Customers, "Id", "SourceId", order.CustomerId);
-            return View(order);
+            return View(assetType);
         }
 
-        // POST: Orders/Edit/5
+        // POST: AssetTypes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,SourceId,CustomerId")] Order order)
+        public ActionResult Edit([Bind(Include = "Id,Description,AssetPrefix")] AssetType assetType)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(order).State = EntityState.Modified;
+                db.Entry(assetType).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CustomerId = new SelectList(db.Customers, "Id", "SourceId", order.CustomerId);
-            return View(order);
+            return View(assetType);
         }
 
-        // GET: Orders/Delete/5
+        // GET: AssetTypes/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = db.Orders.Find(id);
-            if (order == null)
+            AssetType assetType = db.AssetTypes.Find(id);
+            if (assetType == null)
             {
                 return HttpNotFound();
             }
-            return View(order);
+            return View(assetType);
         }
 
-        // POST: Orders/Delete/5
+        // POST: AssetTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Order order = db.Orders.Find(id);
-            db.Orders.Remove(order);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteAll()
-        {
-            db.Orders.RemoveRange(db.Orders);
+            AssetType assetType = db.AssetTypes.Find(id);
+            db.AssetTypes.Remove(assetType);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

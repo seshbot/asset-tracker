@@ -10,6 +10,7 @@ namespace KbcKegs.Data
 {
     public class KbcDbContext : DbContext
     {
+        public DbSet<AssetType> AssetTypes { get; set; }
         public DbSet<Asset> Assets { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -25,32 +26,43 @@ namespace KbcKegs.Data
         {
             base.Seed(context);
 
+            var assetTypes = new Dictionary<string, AssetType>
+            {
+                { "20L Keg", new AssetType { Description = "20L Keg", AssetPrefix = "20" } },
+                { "15L Keg", new AssetType { Description = "15L Keg", AssetPrefix = "15" } },
+                { "10L Keg", new AssetType { Description = "10L Keg", AssetPrefix = "10" } },
+            };
+
+            context.AssetTypes.AddRange(assetTypes.Values);
+
+            context.SaveChanges();
+
             context.Assets.AddRange(new List<Asset>
             {
-                new Asset { SerialNumber = "S200001", Description = "20L Keg", State = AssetState.Available },
-                new Asset { SerialNumber = "S200002", Description = "20L Keg", State = AssetState.Available },
-                new Asset { SerialNumber = "S200003", Description = "20L Keg", State = AssetState.Available },
-                new Asset { SerialNumber = "S200004", Description = "20L Keg", State = AssetState.Available },
-                new Asset { SerialNumber = "S200005", Description = "20L Keg", State = AssetState.Available },
-                new Asset { SerialNumber = "S200006", Description = "20L Keg", State = AssetState.Available },
-                new Asset { SerialNumber = "S200007", Description = "20L Keg", State = AssetState.Available },
-                new Asset { SerialNumber = "S200008", Description = "20L Keg", State = AssetState.Available },
-                new Asset { SerialNumber = "S200009", Description = "20L Keg", State = AssetState.Available },
-                new Asset { SerialNumber = "S200010", Description = "20L Keg", State = AssetState.Available },
-                new Asset { SerialNumber = "S200011", Description = "20L Keg", State = AssetState.Available },
-                new Asset { SerialNumber = "S200012", Description = "20L Keg", State = AssetState.Available },
-                new Asset { SerialNumber = "S200013", Description = "20L Keg", State = AssetState.Available },
-                new Asset { SerialNumber = "S200014", Description = "20L Keg", State = AssetState.Available },
-                new Asset { SerialNumber = "S150001", Description = "15L Keg", State = AssetState.Available },
-                new Asset { SerialNumber = "S150002", Description = "15L Keg", State = AssetState.Available },
-                new Asset { SerialNumber = "S150003", Description = "15L Keg", State = AssetState.Available },
-                new Asset { SerialNumber = "S150004", Description = "15L Keg", State = AssetState.Available },
-                new Asset { SerialNumber = "S150005", Description = "15L Keg", State = AssetState.Available },
-                new Asset { SerialNumber = "S100001", Description = "10L Keg", State = AssetState.Available },
-                new Asset { SerialNumber = "S100002", Description = "10L Keg", State = AssetState.Available },
-                new Asset { SerialNumber = "S100003", Description = "10L Keg", State = AssetState.Available },
-                new Asset { SerialNumber = "S100004", Description = "10L Keg", State = AssetState.Available },
-                new Asset { SerialNumber = "S100005", Description = "10L Keg", State = AssetState.Available },
+                new Asset { SerialNumber = "S200001", AssetType = assetTypes["20L Keg"], State = AssetState.Available },
+                new Asset { SerialNumber = "S200002", AssetType = assetTypes["20L Keg"], State = AssetState.Available },
+                new Asset { SerialNumber = "S200003", AssetType = assetTypes["20L Keg"], State = AssetState.Available },
+                new Asset { SerialNumber = "S200004", AssetType = assetTypes["20L Keg"], State = AssetState.Available },
+                new Asset { SerialNumber = "S200005", AssetType = assetTypes["20L Keg"], State = AssetState.Available },
+                new Asset { SerialNumber = "S200006", AssetType = assetTypes["20L Keg"], State = AssetState.Available },
+                new Asset { SerialNumber = "S200007", AssetType = assetTypes["20L Keg"], State = AssetState.Available },
+                new Asset { SerialNumber = "S200008", AssetType = assetTypes["20L Keg"], State = AssetState.Available },
+                new Asset { SerialNumber = "S200009", AssetType = assetTypes["20L Keg"], State = AssetState.Available },
+                new Asset { SerialNumber = "S200010", AssetType = assetTypes["20L Keg"], State = AssetState.Available },
+                new Asset { SerialNumber = "S200011", AssetType = assetTypes["20L Keg"], State = AssetState.Available },
+                new Asset { SerialNumber = "S200012", AssetType = assetTypes["20L Keg"], State = AssetState.Available },
+                new Asset { SerialNumber = "S200013", AssetType = assetTypes["20L Keg"], State = AssetState.Available },
+                new Asset { SerialNumber = "S200014", AssetType = assetTypes["20L Keg"], State = AssetState.Available },
+                new Asset { SerialNumber = "S150001", AssetType = assetTypes["15L Keg"], State = AssetState.Available },
+                new Asset { SerialNumber = "S150002", AssetType = assetTypes["15L Keg"], State = AssetState.Available },
+                new Asset { SerialNumber = "S150003", AssetType = assetTypes["15L Keg"], State = AssetState.Available },
+                new Asset { SerialNumber = "S150004", AssetType = assetTypes["15L Keg"], State = AssetState.Available },
+                new Asset { SerialNumber = "S150005", AssetType = assetTypes["15L Keg"], State = AssetState.Available },
+                new Asset { SerialNumber = "S100001", AssetType = assetTypes["10L Keg"], State = AssetState.Available },
+                new Asset { SerialNumber = "S100002", AssetType = assetTypes["10L Keg"], State = AssetState.Available },
+                new Asset { SerialNumber = "S100003", AssetType = assetTypes["10L Keg"], State = AssetState.Available },
+                new Asset { SerialNumber = "S100004", AssetType = assetTypes["10L Keg"], State = AssetState.Available },
+                new Asset { SerialNumber = "S100005", AssetType = assetTypes["10L Keg"], State = AssetState.Available },
             });
 
             context.SaveChanges();

@@ -18,6 +18,16 @@ namespace KbcKegs.Model.Services
             _customers = customers;
         }
 
+        public Order MergeOrder(int? id, string sourceId, string customerSourceId)
+        {
+            if (id.HasValue && id.Value > 0)
+            {
+                return FindOrderById(id.Value);
+            }
+
+            return FindOrder(sourceId, customerSourceId);
+        }
+
         private Customer FindCustomerBySourceId(string customerSourceId)
         {
             if (string.IsNullOrEmpty(customerSourceId))

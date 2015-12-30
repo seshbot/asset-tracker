@@ -11,5 +11,6 @@ namespace KbcKegs.Model.Services
     {
         Order FindOrderById(int orderId);
         Order FindOrder(string sourceId, string customerSourceId);
+        Order MergeOrder(int? orderId, string sourceId, string customerSourceId);
     }
 }

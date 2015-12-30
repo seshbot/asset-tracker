@@ -51,11 +51,13 @@
   <ItemGroup>
     <Compile Include="Asset.cs" />
     <Compile Include="AssetEventInfo.cs" />
+    <Compile Include="AssetType.cs" />
     <Compile Include="CleaningEvent.cs" />
     <Compile Include="CollectionEvent.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="DeliveryEvent.cs" />
     <Compile Include="Repositories\IAssetRepository.cs" />
+    <Compile Include="Repositories\IAssetTypeRepository.cs" />
     <Compile Include="Repositories\ICustomerRepository.cs" />
     <Compile Include="Repositories\IEntityRepository.cs" />
     <Compile Include="Repositories\IEventRepository.cs" />

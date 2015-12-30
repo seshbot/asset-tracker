@@ -17,21 +17,21 @@ namespace KbcKegs.Models.Api
             {
                 Id = asset.Id,
                 SerialNumber = asset.SerialNumber,
-                Description = asset.Description,
+                Description = asset.AssetType?.Description ?? "",
             };
         }
 
-        static public Asset ToNewDb(this AssetViewModel vm, AssetState initialState = AssetState.Available)
-        {
-            return vm.UpdateDb(new Asset { State = initialState });
-        }
+        //static public Asset ToNewDb(this AssetViewModel vm, AssetState initialState = AssetState.Available)
+        //{
+        //    return vm.UpdateDb(new Asset { State = initialState });
+        //}
 
-        static public Asset UpdateDb(this AssetViewModel vm, Asset asset)
-        {
-            asset.SerialNumber = vm.SerialNumber;
-            asset.Description = vm.Description;
+        //static public Asset UpdateDb(this AssetViewModel vm, Asset asset)
+        //{
+        //    asset.SerialNumber = vm.SerialNumber;
+        //    asset.Description = vm.Description;
 
-            return asset;
-        }
+        //    return asset;
+        //}
     }
 }

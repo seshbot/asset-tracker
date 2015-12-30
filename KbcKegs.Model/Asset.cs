@@ -1,6 +1,7 @@
 ﻿using KbcKegs.Core;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace KbcKegs.Model
 {
     public enum AssetState
     {
+        Unspecified,
         Available,
         WithCustomer,
         NeedsCleaning,
@@ -24,7 +26,10 @@ namespace KbcKegs.Model
             History = new List<AssetEventInfo>();
         }
 
-        public string Description { get; set; }
+        [ForeignKey("AssetType")]
+        [DisplayName("Asset Type")]
+        public int? AssetTypeId { get; set; }
+        public virtual AssetType AssetType { get; set; }
 
         [Required]
         [MaxLength(128)]
