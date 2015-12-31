@@ -6,7 +6,7 @@ namespace KbcKegs.Models.Api
     {
         public int Id { get; set; }
         public string SourceId { get; set; }
-        public int CustomerId { get; set; }
+        public int? CustomerId { get; set; }
         public string CustomerName { get; set; }
     }
 

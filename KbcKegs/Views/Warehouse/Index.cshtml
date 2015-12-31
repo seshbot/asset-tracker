@@ -25,7 +25,7 @@
                             <select ng-hide="newDelivery.manualOrderDetails" ng-model="newDelivery.orderId" class="form-control" id="newDeliveryOrderId" name="OrderId">
                                 @foreach (var order in Model.Orders)
                                 {
-                                    <option value="@order.Id">@order.SourceId (@order.Customer.Name)</option>
+                                    <option value="@order.Id">@order.SourceId (@(order.Customer?.Name ?? "-"))</option>
                                 }
                             </select>
                             <span class="field-validation-valid text-danger" data-valmsg-for="newDeliveryOrderId" data-valmsg-replace="true"></span>
@@ -47,7 +47,7 @@
                                 </tr>
                                 <tr ng-repeat="asset in newDelivery.assets">
                                     <td>{{asset.serialNumber}}</td>
-                                    <td>{{asset.description}}</td>
+                                    <td>{{asset.assetType.description}}</td>
                                     <td><a href="" ng-click="removeAsset(asset)">remove</a></td>
                                 </tr>
                                 <tr>
@@ -56,7 +56,7 @@
                                             <option ng-repeat="asset in assetsAvailable" value="{{asset.id}}">{{asset.serialNumber}}</option>
                                         </select>
                                     </td>
-                                    <td>{{selectedAsset.description}}</td>
+                                    <td>{{selectedAsset.assetType.description}}</td>
                                     <td><a href="" ng-click="addSelectedAsset()">add</a></td>
                                 </tr>
                                 <tr>
@@ -64,7 +64,7 @@
                                         <input placeholder="Serial #" type="text" ng-model="newAsset.serialNumber" class="form-control" />
                                     </td>
                                     <td>
-                                        <input placeholder="Description" type="text" ng-model="newAsset.description" class="form-control" />
+                                        <input placeholder="Description" type="text" ng-model="newAsset.assetType.description" class="form-control" />
                                     </td>
                                     <td><a href="" ng-click="addNewAsset()">create</a></td>
                                 </tr>
@@ -116,7 +116,7 @@
                                 </tr>
                                 <tr ng-repeat="asset in newCollection.assets">
                                     <td>{{asset.serialNumber}}</td>
-                                    <td>{{asset.description}}</td>
+                                    <td>{{asset.assetType.description}}</td>
                                     <td><a href="" ng-click="removeAsset(asset)">remove</a></td>
                                 </tr>
                                 <tr>
@@ -125,7 +125,7 @@
                                             <option ng-repeat="asset in assetsWithCustomers" value="{{asset.id}}">{{asset.serialNumber}}</option>
                                         </select>
                                     </td>
-                                    <td>{{selectedAsset.description}}</td>
+                                    <td>{{selectedAsset.assetType.description}}</td>
                                     <td><a href="" ng-click="addSelectedAsset()">add</a></td>
                                 </tr>
                             </table>
@@ -163,7 +163,7 @@
                                 </tr>
                                 <tr ng-repeat="asset in newCleaning.assets">
                                     <td>{{asset.serialNumber}}</td>
-                                    <td>{{asset.description}}</td>
+                                    <td>{{asset.assetType.description}}</td>
                                     <td><a href="" ng-click="removeAsset(asset)">remove</a></td>
                                 </tr>
                                 <tr>
@@ -172,7 +172,7 @@
                                             <option ng-repeat="asset in assetsNeedCleaning" value="{{asset.id}}">{{asset.serialNumber}}</option>
                                         </select>
                                     </td>
-                                    <td>{{selectedAsset.description}}</td>
+                                    <td>{{selectedAsset.assetType.description}}</td>
                                     <td><a href="" ng-click="addSelectedAsset()">add</a></td>
                                 </tr>
                             </table>
@@ -256,7 +256,7 @@
         var assets = [
             @foreach (var asset in Model.Assets)
             {
-                @:{ id: @asset.Id, description: '@asset.Description', serialNumber: '@asset.SerialNumber', state: '@asset.State' },
+                @:{ id: @asset.Id, assetType: { description: '@asset.AssetType.Description' }, serialNumber: '@asset.SerialNumber', state: '@asset.State' },
             }
         ];
 

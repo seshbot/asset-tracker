@@ -21,7 +21,17 @@
 
         $scope.newAsset = {
             serialNumber: '',
-            description: ''
+            assetType: {
+                description: ''
+            }
+            //build: function () {
+            //    return {
+            //        serialNumber: this.serialNumber,
+            //        assetType: {
+            //            description: this.description
+            //        }
+            //    };
+            //}
         };
 
         $scope.selectedAssetId = -1;
@@ -74,7 +84,7 @@
 
         function canSend() {
             var orderSpecified = $scope.newDelivery.manualOrderDetails
-                ? ($scope.newDelivery.orderSourceId !== '' && $scope.newDelivery.orderCustomerSourceId !== '')
+                ? ($scope.newDelivery.orderSourceId !== '')
                 : ($scope.newDelivery.orderId != -1);
 
             var assetsSpecified = $scope.newDelivery.assets.length > 0;

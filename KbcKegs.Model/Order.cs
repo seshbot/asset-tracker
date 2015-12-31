@@ -18,7 +18,7 @@ namespace KbcKegs.Model
 
         [ForeignKey("Customer")]
         [DisplayName("Customer")]
-        public int CustomerId { get; set; }
+        public int? CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
 
         public virtual ICollection<DeliveryEvent> Deliveries { get; set; }
