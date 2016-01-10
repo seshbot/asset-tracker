@@ -39,34 +39,23 @@ namespace KbcKegs.Data
 
             context.SaveChanges();
 
-            context.Assets.AddRange(new List<Asset>
+            Func<string, int, int, IEnumerable<Asset>> createAssets = (prefix, start, count) =>
             {
-                new Asset { SerialNumber = "S200001", AssetType = assetTypes["S20"], State = AssetState.Available },
-                new Asset { SerialNumber = "S200002", AssetType = assetTypes["S20"], State = AssetState.Available },
-                new Asset { SerialNumber = "S200003", AssetType = assetTypes["S20"], State = AssetState.Available },
-                new Asset { SerialNumber = "S200004", AssetType = assetTypes["S20"], State = AssetState.Available },
-                new Asset { SerialNumber = "S200005", AssetType = assetTypes["S20"], State = AssetState.Available },
-                new Asset { SerialNumber = "S200006", AssetType = assetTypes["S20"], State = AssetState.Available },
-                new Asset { SerialNumber = "S200007", AssetType = assetTypes["S20"], State = AssetState.Available },
-                new Asset { SerialNumber = "S200008", AssetType = assetTypes["S20"], State = AssetState.Available },
-                new Asset { SerialNumber = "S200009", AssetType = assetTypes["S20"], State = AssetState.Available },
-                new Asset { SerialNumber = "S200010", AssetType = assetTypes["S20"], State = AssetState.Available },
-                new Asset { SerialNumber = "S200011", AssetType = assetTypes["S20"], State = AssetState.Available },
-                new Asset { SerialNumber = "S200012", AssetType = assetTypes["S20"], State = AssetState.Available },
-                new Asset { SerialNumber = "S200013", AssetType = assetTypes["S20"], State = AssetState.Available },
-                new Asset { SerialNumber = "S200014", AssetType = assetTypes["S20"], State = AssetState.Available },
-                new Asset { SerialNumber = "S150001", AssetType = assetTypes["S15"], State = AssetState.Available },
-                new Asset { SerialNumber = "S150002", AssetType = assetTypes["S15"], State = AssetState.Available },
-                new Asset { SerialNumber = "S150003", AssetType = assetTypes["S15"], State = AssetState.Available },
-                new Asset { SerialNumber = "S150004", AssetType = assetTypes["S15"], State = AssetState.Available },
-                new Asset { SerialNumber = "S150005", AssetType = assetTypes["S15"], State = AssetState.Available },
-                new Asset { SerialNumber = "S100001", AssetType = assetTypes["S10"], State = AssetState.Available },
-                new Asset { SerialNumber = "S100002", AssetType = assetTypes["S10"], State = AssetState.Available },
-                new Asset { SerialNumber = "S100003", AssetType = assetTypes["S10"], State = AssetState.Available },
-                new Asset { SerialNumber = "S100004", AssetType = assetTypes["S10"], State = AssetState.Available },
-                new Asset { SerialNumber = "S100005", AssetType = assetTypes["S10"], State = AssetState.Available },
-            });
+                return Enumerable.Range(start, count)
+                          .Select(i => new Asset
+                          {
+                              SerialNumber = prefix + i.ToString("D4"),
+                              AssetType = assetTypes[prefix],
+                              State = AssetState.Available
+                          });
+            };
 
+            context.Assets.AddRange(createAssets("S10", 1, 725));
+            context.Assets.AddRange(createAssets("S15", 1, 700));
+            context.Assets.AddRange(createAssets("S20", 1, 160));
+            context.Assets.AddRange(createAssets("U10", 1, 96));
+            context.Assets.AddRange(createAssets("U20", 1, 50));
+            
             context.SaveChanges();
 
             var customers = new Dictionary<string, Customer>

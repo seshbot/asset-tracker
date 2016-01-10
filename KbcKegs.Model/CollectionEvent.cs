@@ -15,10 +15,6 @@ namespace KbcKegs.Model
             Assets = new List<Asset>();
         }
 
-        [ForeignKey("Customer")]
-        public int CustomerId { get; set; }
-        public virtual Customer Customer { get; set; }
-
         public virtual ICollection<Asset> Assets { get; set; }
     }
 }

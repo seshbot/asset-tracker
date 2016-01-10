@@ -66,7 +66,7 @@ namespace KbcKegs.Model.Services
         {
             if (string.IsNullOrEmpty(description))
             {
-                return null;
+                return FindAssetTypeByDescription(AssetType.Unknown);
             }
 
             var result = _assetTypes.GetByDescription(description);

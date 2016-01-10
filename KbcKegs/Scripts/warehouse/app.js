@@ -130,7 +130,6 @@
         $scope.assetsWithCustomers = assetsWithCustomers;
 
         $scope.newCollection = {
-            customerId: -1,
             assets: []
         };
 
@@ -170,8 +169,7 @@
 
         function canSend() {            
             var result =
-               ($scope.newCollection.customerId != -1 &&
-                $scope.newCollection.assets.length > 0);
+               ($scope.newCollection.assets.length > 0);
 
             return result;
         };

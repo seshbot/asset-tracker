@@ -42,8 +42,6 @@ namespace KbcKegs.Controllers.Api
             {
                 Id = evt.Id,
                 DateTime = evt.DateTime,
-                CustomerId = evt.CustomerId,
-                CustomerName = evt.Customer?.Name,
                 Assets = evt.Assets.Select(AssetViewModelExtensions.ToViewModel).ToList(),
             };
         }
@@ -56,7 +54,6 @@ namespace KbcKegs.Controllers.Api
                 DateTime = DateTime.UtcNow, // dont copy from vm - we are creating a new event
                 Assets = vm.Assets.Select(a =>
                     inventory.MergeAsset(a.Id, a.SerialNumber, a.Description)).ToList(),
-                CustomerId = vm.CustomerId,
             };
         }
 

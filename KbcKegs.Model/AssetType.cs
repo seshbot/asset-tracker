@@ -12,6 +12,8 @@ namespace KbcKegs.Model
 {
     public class AssetType : BaseEntity
     {
+        public const string Unknown = "Unknown";
+
         [Required]
         [MaxLength(128)]
         [Index]

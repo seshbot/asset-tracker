@@ -91,19 +91,6 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="control-label col-md-2">Customer</label>
-                        <div class="col-md-10">
-                            <select ng-model="newCollection.customerId" class="form-control" id="newCollectionCustomerId" name="CustomerId">
-                                @foreach (var customer in Model.Customers)
-                                {
-                                    <option value="@customer.Id">@customer.Name (@customer.SourceId)</option>
-                                }
-                            </select>
-                            <span class="field-validation-valid text-danger" data-valmsg-for="newCollectionCustomerId" data-valmsg-replace="true"></span>
-                            <p />
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <div class="col-md-2">
                             <label class="control-label">Assets</label>
                         </div>
@@ -221,7 +208,6 @@
                     {
                         <tr>
                             <td>@Html.DisplayFor(m => evt.DateTime)</td>
-                            <td>@Html.DisplayFor(m => evt.CustomerId)</td>
                             <td>@Html.DisplayFor(m => evt.Assets.Count)</td>
                         </tr>
                     }
@@ -256,7 +242,7 @@
         var assets = [
             @foreach (var asset in Model.Assets)
             {
-                @:{ id: @asset.Id, assetType: { description: '@asset.AssetType.Description' }, serialNumber: '@asset.SerialNumber', state: '@asset.State' },
+                @:{ id: @asset.Id, assetType: { description: '@(asset.AssetType?.Description ?? "")' }, serialNumber: '@asset.SerialNumber', state: '@asset.State' },
             }
         ];
 
